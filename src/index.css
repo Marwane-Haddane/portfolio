@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* Ensure the body and root take up the whole screen but still scroll naturally */
+html {
+  scroll-behavior: smooth;
+  background: black;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
