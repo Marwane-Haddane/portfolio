@@ -1,0 +1,163 @@
+/*
+
+import { useEffect, useRef, useId } from 'react';
+import { gsap } from 'gsap';
+
+import './DecayCard.css';
+
+const DecayCard = ({ width = 300, height = 400, image = 'https://picsum.photos/300/400?grayscale', children }) => {
+  const filterId = useId().replace(/:/g, '');
+  const svgRef = useRef(null);
+  const displacementMapRef = useRef(null);
+  const turbulenceRef = useRef(null);
+  const cursor = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const cachedCursor = useRef({ ...cursor.current });
+  const winsize = useRef({ width: window.innerWidth, height: window.innerHeight });
+
+  useEffect(() => {
+    const lerp = (a, b, n) => (1 - n) * a + n * b;
+    const map = (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c;
+    const distance = (x1, x2, y1, y2) => Math.hypot(x1 - x2, y1 - y2);
+
+    const handleResize = () => {
+      winsize.current = { width: window.innerWidth, height: window.innerHeight };
+    };
+
+    const handleMouseMove = ev => {
+      cursor.current = { x: ev.clientX, y: ev.clientY };
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const imgValues = {
+      imgTransforms: { x: 0, y: 0, rz: 0 },
+      displacementScale: 0
+    };
+
+    let startTime = Date.now();
+
+    const render = () => {
+      const elapsed = (Date.now() - startTime) / 1000;
+
+      let targetX = lerp(imgValues.imgTransforms.x, map(cursor.current.x, 0, winsize.current.width, -80, 80), 0.1);
+      let targetY = lerp(imgValues.imgTransforms.y, map(cursor.current.y, 0, winsize.current.height, -80, 80), 0.1);
+      let targetRz = lerp(imgValues.imgTransforms.rz, map(cursor.current.x, 0, winsize.current.width, -10, 10), 0.1);
+
+      const bound = 50;
+      if (targetX > bound) targetX = bound + (targetX - bound) * 0.2;
+      if (targetX < -bound) targetX = -bound + (targetX + bound) * 0.2;
+      if (targetY > bound) targetY = bound + (targetY - bound) * 0.2;
+      if (targetY < -bound) targetY = -bound + (targetY + bound) * 0.2;
+
+      imgValues.imgTransforms.x = targetX;
+      imgValues.imgTransforms.y = targetY;
+      imgValues.imgTransforms.rz = targetRz;
+
+      if (svgRef.current) {
+        gsap.set(svgRef.current, {
+          x: imgValues.imgTransforms.x,
+          y: imgValues.imgTransforms.y,
+          rotateZ: imgValues.imgTransforms.rz
+        });
+      }
+
+      const cursorTravelledDistance = distance(
+        cachedCursor.current.x,
+        cursor.current.x,
+        cachedCursor.current.y,
+        cursor.current.y
+      );
+
+      // Higher sensitivity and a baseline "glitch" oscillation
+      const targetScale = map(cursorTravelledDistance, 0, 100, 20, 450) + Math.sin(elapsed * 12) * 10;
+      imgValues.displacementScale = lerp(imgValues.displacementScale, targetScale, 0.15);
+
+      if (displacementMapRef.current) {
+        // Use setAttribute for maximum compatibility
+        displacementMapRef.current.setAttribute('scale', imgValues.displacementScale);
+      }
+
+      if (turbulenceRef.current) {
+        // Animate turbulence seed for more "noisy" animation
+        turbulenceRef.current.setAttribute('seed', Math.floor(elapsed * 8) % 100);
+      }
+
+      cachedCursor.current = { ...cursor.current };
+      requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  return (
+    <div
+      className="decay-card-outer"
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+        position: 'relative',
+        overflow: 'visible' // Ensure glitch doesn't get clipped
+      }}
+    >
+      <div
+        className="content"
+        ref={svgRef}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <svg viewBox="-60 -75 720 900" preserveAspectRatio="xMidYMid slice" className="svg">
+          <filter id={filterId} colorInterpolationFilters="sRGB">
+            <feTurbulence
+              ref={turbulenceRef}
+              type="turbulence"
+              baseFrequency="0.03"
+              numOctaves="4"
+              seed="4"
+              stitchTiles="stitch"
+              result="turbulence1"
+            />
+            <feDisplacementMap
+              ref={displacementMapRef}
+              in="SourceGraphic"
+              in2="turbulence1"
+              scale="0"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="displacementMap3"
+            />
+          </filter>
+
+          {/* Apply filter to a group containing BOTH image and foreignObject text */
+          /* <g filter={`url(#${filterId})`}>
+            <image
+              href={image}
+              x="0"
+              y="0"
+              width="600"
+              height="750"
+              preserveAspectRatio="xMidYMid slice"
+            />
+
+            {/* Wrap text in foreignObject to apply SVG filter to it *//*}*/
+            /* <foreignObject x="0" y="0" width="600" height="750">
+              <div className="card-text" style={{ position: 'relative', height: '100%', width: '100%' }}>
+                {children}
+              </div>
+            </foreignObject>
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+export default DecayCard; */ 
+
