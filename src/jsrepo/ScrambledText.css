@@ -1,0 +1,17 @@
+.text-block {
+  max-width: 800px;
+  font-family: monospace;
+  font-size: clamp(14px, 2.5vw, 24px);
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+  cursor: default;
+}
+
+.text-block p {
+  margin: 0;
+}
+
+.char {
+  will-change: transform;
+  display: inline-block;
+}

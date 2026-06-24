@@ -1,70 +1,34 @@
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-
 import './FlowingMenu.css';
 
-function FlowingMenu({
-  items = [],
-  speed = 15,
-  textColor = '#fff',
-  bgColor = '#060010',
-  marqueeBgColor = '#fff',
-  marqueeTextColor = '#060010',
-  borderColor = '#fff'
-}) {
-  return (
-    <div className="menu-wrap" style={{ backgroundColor: bgColor }}>
-      <nav className="menu">
-        {items.map((item, idx) => (
-          <MenuItem
-            key={idx}
-            {...item}
-            speed={speed}
-            textColor={textColor}
-            marqueeBgColor={marqueeBgColor}
-            marqueeTextColor={marqueeTextColor}
-            borderColor={borderColor}
-          />
-        ))}
-      </nav>
-    </div>
-  );
-}
-
-function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marqueeTextColor, borderColor }) {
+const MenuItem = ({ link, text, image, hoverImage, texts, images, speed, textColor, marqueeBgColor, marqueeTextColor, borderColor }) => {
   const itemRef = useRef(null);
   const marqueeRef = useRef(null);
   const marqueeInnerRef = useRef(null);
+  const hoverImgRef = useRef(null);
   const animationRef = useRef(null);
   const [repetitions, setRepetitions] = useState(4);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const scrollTexts = texts || [text, text, text];
+  const scrollImages = images || [image, image, image];
 
   const animationDefaults = { duration: 0.6, ease: 'expo' };
 
   const findClosestEdge = (mouseX, mouseY, width, height) => {
-    const topEdgeDist = distMetric(mouseX, mouseY, width / 2, 0);
-    const bottomEdgeDist = distMetric(mouseX, mouseY, width / 2, height);
+    const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - 0, 2);
+    const bottomEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - height, 2);
     return topEdgeDist < bottomEdgeDist ? 'top' : 'bottom';
-  };
-
-  const distMetric = (x, y, x2, y2) => {
-    const xDiff = x - x2;
-    const yDiff = y - y2;
-    return xDiff * xDiff + yDiff * yDiff;
   };
 
   useEffect(() => {
     const calculateRepetitions = () => {
       if (!marqueeInnerRef.current) return;
-
-      // Get the first marquee part to measure content width
       const marqueeContent = marqueeInnerRef.current.querySelector('.marquee__part');
       if (!marqueeContent) return;
-
       const contentWidth = marqueeContent.offsetWidth;
       const viewportWidth = window.innerWidth;
-
-      // Calculate how many copies we need to fill viewport + extra for seamless loop
-      // We need at least 2, but calculate based on content vs viewport
       const needed = Math.ceil(viewportWidth / contentWidth) + 2;
       setRepetitions(Math.max(4, needed));
     };
@@ -72,15 +36,13 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
     calculateRepetitions();
     window.addEventListener('resize', calculateRepetitions);
     return () => window.removeEventListener('resize', calculateRepetitions);
-  }, [text, image]);
+  }, [scrollTexts, scrollImages]);
 
   useEffect(() => {
     const setupMarquee = () => {
       if (!marqueeInnerRef.current) return;
-
       const marqueeContent = marqueeInnerRef.current.querySelector('.marquee__part');
       if (!marqueeContent) return;
-
       const contentWidth = marqueeContent.offsetWidth;
       if (contentWidth === 0) return;
 
@@ -88,7 +50,6 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
         animationRef.current.kill();
       }
 
-      // Animate exactly one content width for seamless loop
       animationRef.current = gsap.to(marqueeInnerRef.current, {
         x: -contentWidth,
         duration: speed,
@@ -97,16 +58,31 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
       });
     };
 
-    // Small delay to ensure DOM is ready after repetitions update
-    const timer = setTimeout(setupMarquee, 50);
-
+    const timer = setTimeout(setupMarquee, 100);
     return () => {
       clearTimeout(timer);
-      if (animationRef.current) {
-        animationRef.current.kill();
-      }
+      if (animationRef.current) animationRef.current.kill();
     };
-  }, [text, image, repetitions, speed]);
+  }, [scrollTexts, scrollImages, repetitions, speed]);
+
+  useEffect(() => {
+    const handleGlobalMouseMove = (ev) => {
+      if (!isHovered || !hoverImgRef.current) return;
+      gsap.to(hoverImgRef.current, {
+        x: ev.clientX,
+        y: ev.clientY,
+        xPercent: -50,
+        yPercent: -110,
+        duration: 0.4,
+        ease: 'power3.out'
+      });
+    };
+
+    if (isHovered) {
+      window.addEventListener('mousemove', handleGlobalMouseMove);
+    }
+    return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+  }, [isHovered]);
 
   const handleMouseEnter = ev => {
     if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
@@ -115,8 +91,14 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
     const y = ev.clientY - rect.top;
     const edge = findClosestEdge(x, y, rect.width, rect.height);
 
-    gsap
-      .timeline({ defaults: animationDefaults })
+    setIsHovered(true);
+
+    if (hoverImgRef.current) {
+      gsap.set(hoverImgRef.current, { x: ev.clientX, y: ev.clientY, xPercent: -50, yPercent: -110 });
+      gsap.to(hoverImgRef.current, { opacity: 1, scale: 1, duration: 0.4, ease: 'power3.out' });
+    }
+
+    gsap.timeline({ defaults: animationDefaults })
       .set(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
       .set(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0)
       .to([marqueeRef.current, marqueeInnerRef.current], { y: '0%' }, 0);
@@ -129,10 +111,15 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
     const y = ev.clientY - rect.top;
     const edge = findClosestEdge(x, y, rect.width, rect.height);
 
-    gsap
-      .timeline({ defaults: animationDefaults })
+    setIsHovered(false);
+
+    gsap.timeline({ defaults: animationDefaults })
       .to(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
       .to(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0);
+
+    if (hoverImgRef.current) {
+      gsap.to(hoverImgRef.current, { opacity: 0, scale: 0.8, duration: 0.4, ease: 'power3.out' });
+    }
   };
 
   return (
@@ -151,15 +138,55 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
           <div className="marquee__inner" ref={marqueeInnerRef} aria-hidden="true">
             {[...Array(repetitions)].map((_, idx) => (
               <div className="marquee__part" key={idx} style={{ color: marqueeTextColor }}>
-                <span>{text}</span>
-                <div className="marquee__img" style={{ backgroundImage: `url(${image})` }} />
+                {scrollTexts.map((t, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                    <span>{t}</span>
+                    <div className="marquee__img" style={{ backgroundImage: `url(${scrollImages[i] || scrollImages[0]})` }} />
+                  </div>
+                ))}
               </div>
             ))}
           </div>
         </div>
       </div>
+      {(hoverImage || image) && (
+        <img
+          ref={hoverImgRef}
+          src={hoverImage || image}
+          alt=""
+          className="menu__hover-img"
+        />
+      )}
     </div>
   );
-}
+};
+
+export const FlowingMenu = ({
+  items = [],
+  speed = 15,
+  textColor = '#fff',
+  bgColor = '#060010',
+  marqueeBgColor = '#fff',
+  marqueeTextColor = '#060010',
+  borderColor = '#fff'
+}) => {
+  return (
+    <div className="menu-wrap" style={{ backgroundColor: bgColor }}>
+      <nav className="menu">
+        {items.map((item, idx) => (
+          <MenuItem
+            key={idx}
+            {...item}
+            speed={speed}
+            textColor={textColor}
+            marqueeBgColor={marqueeBgColor}
+            marqueeTextColor={marqueeTextColor}
+            borderColor={borderColor}
+          />
+        ))}
+      </nav>
+    </div>
+  );
+};
 
 export default FlowingMenu;
