@@ -11,7 +11,7 @@
 
 .card-nav {
   display: block;
-  height: 60px;
+  height: 70px;
   padding: 0;
   background-color: white;
   border: 0.5px solid rgba(255, 255, 255, 0.1);
@@ -73,7 +73,7 @@
   align-items: center;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 60%;
   transform: translate(-50%, -50%);
 }
 
@@ -107,7 +107,7 @@
 /* the design of get start */
 /*==============================================*/
 .btnnav {
- display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 10rem;
@@ -119,23 +119,26 @@
   border-radius: 1rem;
   transition: 0.5s;
   animation: gradient_301 5s ease infinite;
-  border: double 4px transparent;
+  border: double 3px transparent;
   background-image: linear-gradient(#212121, #212121),
-    linear-gradient(
-      137.48deg,
-      #ffdb3b 10%,
-      #fe53bb 45%,
+    linear-gradient(137.48deg,
+      #26eb7f 10%,
+      #12f1f5 27%,
+      #0044ff 45%,
       #8f51ea 67%,
-      #0044ff 87%
-    );
+      #fe53bb 87%);
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
+
 .btnnav:active .circle {
-  background: #fe53bb;
+  transition: 0.05s;
+  background: #2302ff;
 }
+
 .btnnav:active {
-  border: double 4px #fe53bb;
+  transition: 0.05s;
+  border: double 4px #00c8ff;
   background-origin: border-box;
   background-clip: content-box, border-box;
   animation: none;
@@ -181,7 +184,7 @@
 }
 
 .btnnav:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .text {

@@ -150,24 +150,26 @@ const CardNav = ({
           </div>
 
           <div className="logo-container">
-            <a href="#hero">
+            <a href="#home">
               <img src={logo} alt={logoAlt} className="logo" />
             </a>
           </div>
 
-          <button
-            type="button"
-            className="card-nav-cta-button btnnav mr-2 "
-          >
-            <div className='text'>Get Started</div>
-            <div id="container-stars">
-            </div>
-            <div id="glow">
-              <div class="circle"></div>
-              <div class="circle"></div>
-            </div>
-            
-          </button>
+          <a href="#contact">
+            <button
+              type="button"
+              className="card-nav-cta-button btnnav mr-2 "
+            >
+              <div className='text'><b> Let's talk</b></div>
+              <div id="container-stars">
+              </div>
+              <div id="glow">
+                <div className="circle"></div>
+                <div className="circle"></div>
+              </div>
+
+            </button>
+          </a>
         </div>
 
         <div className="card-nav-content" aria-hidden={!isExpanded}>

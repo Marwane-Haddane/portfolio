@@ -1,25 +1,26 @@
 import React from 'react'
 import CardNav from '../../jsrepo/CardNav'
-import logo from '../../../public/mylogo.png';
+import logo from '../../../public/logo2.png';
 
 function Nav() {
     const items = [
         {
-            label: "About",
+            label: "About me",
             bgColor: "#0D0716",
             textColor: "#fff",
             links: [
-                { label: "Company", ariaLabel: "About Company" },
-                { label: "Careers", ariaLabel: "About Careers" }
+                { label: "Who I Am", href: "#about", ariaLabel: "About me" },
+                { label: "My Expertise", href: "#experience", ariaLabel: "About Careers" },
             ]
         },
         {
-            label: "Projects",
+            label: "My work",
             bgColor: "#170D27",
             textColor: "#fff",
             links: [
-                { label: "Featured", ariaLabel: "Featured Projects" },
-                { label: "Case Studies", ariaLabel: "Project Case Studies" }
+                { label: "Github", href: "https://github.com/Marwane-Haddane/", target: "_blank", ariaLabel: "Github" },
+                { label: "Skills", href: "#skills", ariaLabel: "Skills" },
+                { label: "Projects", href: "#projects", ariaLabel: "Featured Projects" }
             ]
         },
         {
@@ -27,10 +28,15 @@ function Nav() {
             bgColor: "#271E37",
             textColor: "#fff",
             links: [
-                { label: "Email", href: "mailto:marwanhaddan2005@gmail.com", ariaLabel: "Email us" },
-                { label: "Github", href: "https://github.com/Marwane-Haddane/", target: "_blank", ariaLabel: "Github" },
-                { label: "Owner", href: "#home", ariaLabel: "Owner" },
-                { label: "LinkedIn", href: "https://www.linkedin.com/in/marwane-haddane", target: "_blank", ariaLabel: "LinkedIn" }
+                { label: "Email", href: "mailto:marwanehaddane5@gmail.com", ariaLabel: "Email us" },
+                { label: "Get in Touch", href: "#contact", ariaLabel: "Get in Touch" },
+                { label: "LinkedIn", href: "https://www.linkedin.com/in/marwane-haddane", target: "_blank", ariaLabel: "LinkedIn" },
+                {
+                    label: "WhatsApp",
+                    href: "https://wa.me/212649946554",
+                    target: "_blank",
+                    ariaLabel: "Chat on WhatsApp"
+                }
             ]
         }
     ];

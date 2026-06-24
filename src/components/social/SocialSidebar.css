@@ -1,0 +1,60 @@
+.social-sidebar {
+  position: fixed;
+  left: 2rem;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 100;
+}
+
+.social-link {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-link:hover {
+  color: #7c3aed;
+  transform: translateY(-5px) scale(1.1);
+}
+
+.social-tooltip {
+  position: absolute;
+  left: 100%;
+  margin-left: 1rem;
+  background: #7c3aed;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.social-link:hover .social-tooltip {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.social-line {
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, #7c3aed, transparent);
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 1340px) {
+  .social-sidebar {
+    display: none;
+    /* Hide on mobile to avoid clutter */
+  }
+}

@@ -1,3 +1,14 @@
+.custom-shape-divider-bottom-1777864161 .shape-fill {
+  /* This ensures the path uses your defined gradient */
+  fill: url(#dividerGradient);
+}
+
+/* Fix for the tiny gap at the bottom */
+.custom-shape-divider-bottom-1777864161 svg {
+  margin-bottom: -1px;
+}
+
+
 .grid2 {
   position: relative;
   z-index: 10;

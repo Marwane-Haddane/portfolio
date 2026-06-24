@@ -1,163 +1,346 @@
-/*
+.project-section {
+  padding: 6rem 2rem 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
 
-import { useEffect, useRef, useId } from 'react';
-import { gsap } from 'gsap';
+.project-section__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
 
-import './DecayCard.css';
+/* ─── Skills Rows ─── */
+.skills-loop-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 1rem 0;
+  overflow: hidden;
+}
 
-const DecayCard = ({ width = 300, height = 400, image = 'https://picsum.photos/300/400?grayscale', children }) => {
-  const filterId = useId().replace(/:/g, '');
-  const svgRef = useRef(null);
-  const displacementMapRef = useRef(null);
-  const turbulenceRef = useRef(null);
-  const cursor = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  const cachedCursor = useRef({ ...cursor.current });
-  const winsize = useRef({ width: window.innerWidth, height: window.innerHeight });
+.skill-row {
+  position: relative;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
+  cursor: default;
+}
 
-  useEffect(() => {
-    const lerp = (a, b, n) => (1 - n) * a + n * b;
-    const map = (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c;
-    const distance = (x1, x2, y1, y2) => Math.hypot(x1 - x2, y1 - y2);
+.skill-row:last-child {
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+}
 
-    const handleResize = () => {
-      winsize.current = { width: window.innerWidth, height: window.innerHeight };
-    };
+.skill-row__label {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-110%, -50%);
+  font-family: 'Avengers', 'Impact', 'Arial Black', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #7c3aed;
+  text-transform: uppercase;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+  /* Dark background for readability */
+  text-shadow: 0 0 30px rgba(200, 174, 245, 0.225),
+    0 0 60px rgba(231, 231, 231, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(20, 1, 49, 0.944);
+}
 
-    const handleMouseMove = ev => {
-      cursor.current = { x: ev.clientX, y: ev.clientY };
-    };
+.skill-row__label--visible {
+  transform: translate(1rem, -50%);
+  opacity: 1;
+}
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
+/* ─── Featured Projects (full width, no box) ─── */
+.featured-projects-wrap {
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
 
-    const imgValues = {
-      imgTransforms: { x: 0, y: 0, rz: 0 },
-      displacementScale: 0
-    };
+/* ─── Project Filters Layout ─── */
+.project-filters {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
 
-    let startTime = Date.now();
+.project-filters__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 180px;
+  position: sticky;
+  top: 100px;
+}
 
-    const render = () => {
-      const elapsed = (Date.now() - startTime) / 1000;
+.filter-btn {
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
 
-      let targetX = lerp(imgValues.imgTransforms.x, map(cursor.current.x, 0, winsize.current.width, -80, 80), 0.1);
-      let targetY = lerp(imgValues.imgTransforms.y, map(cursor.current.y, 0, winsize.current.height, -80, 80), 0.1);
-      let targetRz = lerp(imgValues.imgTransforms.rz, map(cursor.current.x, 0, winsize.current.width, -10, 10), 0.1);
+.filter-btn:hover {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.3);
+  color: #fff;
+}
 
-      const bound = 50;
-      if (targetX > bound) targetX = bound + (targetX - bound) * 0.2;
-      if (targetX < -bound) targetX = -bound + (targetX + bound) * 0.2;
-      if (targetY > bound) targetY = bound + (targetY - bound) * 0.2;
-      if (targetY < -bound) targetY = -bound + (targetY + bound) * 0.2;
+.filter-btn--active {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: #7c3aed;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+}
 
-      imgValues.imgTransforms.x = targetX;
-      imgValues.imgTransforms.y = targetY;
-      imgValues.imgTransforms.rz = targetRz;
+.project-filters__content {
+  flex: 1;
+  min-width: 0;
+}
 
-      if (svgRef.current) {
-        gsap.set(svgRef.current, {
-          x: imgValues.imgTransforms.x,
-          y: imgValues.imgTransforms.y,
-          rotateZ: imgValues.imgTransforms.rz
-        });
-      }
+/* ─── Type Sub-Filters ─── */
+.type-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
 
-      const cursorTravelledDistance = distance(
-        cachedCursor.current.x,
-        cursor.current.x,
-        cachedCursor.current.y,
-        cursor.current.y
-      );
+.type-btn {
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
 
-      // Higher sensitivity and a baseline "glitch" oscillation
-      const targetScale = map(cursorTravelledDistance, 0, 100, 20, 450) + Math.sin(elapsed * 12) * 10;
-      imgValues.displacementScale = lerp(imgValues.displacementScale, targetScale, 0.15);
+.type-btn:hover {
+  color: #fff;
+  border-color: rgba(124, 58, 237, 0.4);
+}
 
-      if (displacementMapRef.current) {
-        // Use setAttribute for maximum compatibility
-        displacementMapRef.current.setAttribute('scale', imgValues.displacementScale);
-      }
+.type-btn--active {
+  background: #7c3aed;
+  color: #fff;
+  border-color: #7c3aed;
+}
 
-      if (turbulenceRef.current) {
-        // Animate turbulence seed for more "noisy" animation
-        turbulenceRef.current.setAttribute('seed', Math.floor(elapsed * 8) % 100);
-      }
+/* ─── Project Cards Grid ─── */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
 
-      cachedCursor.current = { ...cursor.current };
-      requestAnimationFrame(render);
-    };
+.project-card {
+  background: rgba(10, 5, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: cardFadeIn 0.5s ease both;
+  backdrop-filter: blur(8px);
+}
 
-    render();
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
-  return (
-    <div
-      className="decay-card-outer"
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        position: 'relative',
-        overflow: 'visible' // Ensure glitch doesn't get clipped
-      }}
-    >
-      <div
-        className="content"
-        ref={svgRef}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        <svg viewBox="-60 -75 720 900" preserveAspectRatio="xMidYMid slice" className="svg">
-          <filter id={filterId} colorInterpolationFilters="sRGB">
-            <feTurbulence
-              ref={turbulenceRef}
-              type="turbulence"
-              baseFrequency="0.03"
-              numOctaves="4"
-              seed="4"
-              stitchTiles="stitch"
-              result="turbulence1"
-            />
-            <feDisplacementMap
-              ref={displacementMapRef}
-              in="SourceGraphic"
-              in2="turbulence1"
-              scale="0"
-              xChannelSelector="R"
-              yChannelSelector="G"
-              result="displacementMap3"
-            />
-          </filter>
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 30px rgba(124, 58, 237, 0.1);
+}
 
-          {/* Apply filter to a group containing BOTH image and foreignObject text */
-          /* <g filter={`url(#${filterId})`}>
-            <image
-              href={image}
-              x="0"
-              y="0"
-              width="600"
-              height="750"
-              preserveAspectRatio="xMidYMid slice"
-            />
+.project-card__image {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
 
-            {/* Wrap text in foreignObject to apply SVG filter to it *//*}*/
-            /* <foreignObject x="0" y="0" width="600" height="750">
-              <div className="card-text" style={{ position: 'relative', height: '100%', width: '100%' }}>
-                {children}
-              </div>
-            </foreignObject>
-          </g>
-        </svg>
-      </div>
-    </div>
-  );
-};
+.project-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
 
-export default DecayCard; */ 
+.project-card:hover .project-card__image img {
+  transform: scale(1.08);
+}
 
+.project-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-card__overlay {
+  opacity: 1;
+}
+
+.project-card__links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-card__link {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+  text-decoration: none;
+  background: rgba(124, 58, 237, 0.25);
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+}
+
+.project-card__link:hover {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  transform: scale(1.1);
+}
+
+.project-card__info {
+  padding: 1.25rem;
+}
+
+.project-card__badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #a78bfa;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  padding: 0.2em 0.7em;
+  border-radius: 6px;
+  margin-bottom: 0.6rem;
+}
+
+.project-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.4rem;
+}
+
+.project-card__desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.project-card__more {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #7c3aed;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.project-card__more:hover {
+  color: #a78bfa;
+}
+
+.project-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1rem;
+  padding: 3rem 0;
+}
+
+/* ─── Section Spacers ─── */
+.section-spacer {
+  height: 5rem;
+}
+
+.section-spacer--lg {
+  height: 10rem;
+}
+
+/* ─── Detail Gallery Custom Scrollbar ─── */
+.detail-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.detail-gallery::-webkit-scrollbar-track {
+  background: rgba(124, 58, 237, 0.05);
+  border-radius: 99px;
+}
+
+.detail-gallery::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.35);
+  border-radius: 99px;
+}
+
+.detail-gallery::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.6);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .project-filters {
+    flex-direction: column;
+  }
+
+  .project-filters__sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 0;
+    position: static;
+  }
+
+  .featured-projects-wrap {
+    height: 320px;
+  }
+
+  .skill-row__label {
+    font-size: 1.5rem;
+  }
+
+  .section-spacer {
+    height: 3rem;
+  }
+
+  .section-spacer--lg {
+    height: 4rem;
+  }
+}

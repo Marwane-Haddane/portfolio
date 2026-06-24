@@ -3,7 +3,7 @@
 /* Ensure the body and root take up the whole screen but still scroll naturally */
 html {
   scroll-behavior: smooth;
-  background: black;
+  background: #000;
 }
 
 body {
@@ -11,6 +11,9 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background: radial-gradient(circle at top center, #1a0b2e 0%, #000000 100%);
+  background-attachment: fixed;
+  color: #fff;
 }
 
 #root {
