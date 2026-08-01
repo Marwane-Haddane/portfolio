@@ -116,7 +116,7 @@ const ProfileCardComponent = ({
 
       const stillFar = Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05;
 
-      if (stillFar || document.hasFocus()) {
+      if (stillFar) {
         rafId = requestAnimationFrame(step);
       } else {
         running = false;
@@ -485,7 +485,10 @@ const ProfileCardComponent = ({
               <img
                 src={avatarUrl}
                 alt={`${name || 'User'} avatar`}
-                loading="lazy"
+                loading="eager"
+                fetchPriority="high"
+                width="340"
+                height="450"
                 style={{
                   width: '100%', position: 'absolute', left: '50%', bottom: '-1px', backfaceVisibility: 'hidden', willChange: 'transform', transition: 'transform 120ms ease-out',
                   transformOrigin: '50% 100%',

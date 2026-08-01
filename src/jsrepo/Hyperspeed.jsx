@@ -361,7 +361,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         const width = container.offsetWidth || 1;
         const height = container.offsetHeight || 1;
         this.renderer.setSize(width, height, false);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
         this.composer = new EffectComposer(this.renderer);
         container.append(canvas);
 
@@ -447,54 +447,32 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
       initPasses() {
         this.renderPass = new RenderPass(this.scene, this.camera);
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+        if (isMobile) {
+          // On mobile, render to screen directly
+          this.renderPass.renderToScreen = true;
+          this.composer.addPass(this.renderPass);
+          return;
+        }
+
         this.bloomPass = new EffectPass(
           this.camera,
           new BloomEffect({
-            luminanceThreshold: 0.2,
+            luminanceThreshold: 0.3,
             luminanceSmoothing: 0,
-            resolutionScale: 1
+            resolutionScale: 0.5
           })
         );
 
-        const smaaPass = new EffectPass(
-          this.camera,
-          new SMAAEffect({
-            preset: SMAAPreset.MEDIUM,
-            searchImage: this.assets.smaa.search,
-            areaImage: this.assets.smaa.area
-          })
-        );
         this.renderPass.renderToScreen = false;
-        this.bloomPass.renderToScreen = false;
-        smaaPass.renderToScreen = true;
+        this.bloomPass.renderToScreen = true;
         this.composer.addPass(this.renderPass);
         this.composer.addPass(this.bloomPass);
-        this.composer.addPass(smaaPass);
       }
 
       loadAssets() {
-        const assets = this.assets;
-        return new Promise(resolve => {
-          const manager = new THREE.LoadingManager(resolve);
-
-          const searchImage = new Image();
-          const areaImage = new Image();
-          assets.smaa = {};
-          searchImage.addEventListener('load', function () {
-            assets.smaa.search = this;
-            manager.itemEnd('smaa-search');
-          });
-
-          areaImage.addEventListener('load', function () {
-            assets.smaa.area = this;
-            manager.itemEnd('smaa-area');
-          });
-          manager.itemStart('smaa-search');
-          manager.itemStart('smaa-area');
-
-          searchImage.src = SMAAEffect.searchImageDataURL;
-          areaImage.src = SMAAEffect.areaImageDataURL;
-        });
+        return Promise.resolve();
       }
 
       init() {
@@ -621,7 +599,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       }
 
       tick() {
-        if (this.disposed || !this) return;
+        if (this.disposed || this.paused || !this) return;
         if (resizeRendererToDisplaySize(this.renderer, this.setSize)) {
           const canvas = this.renderer.domElement;
           this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -1114,17 +1092,59 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       return needResize;
     }
 
-    (function () {
+    let observer = null;
+    let timerId = null;
+
+    timerId = setTimeout(() => {
       const container = document.getElementById('lights');
-      const options = { ...DEFAULT_EFFECT_OPTIONS, ...effectOptions, colors: { ...DEFAULT_EFFECT_OPTIONS.colors, ...effectOptions.colors } };
+      if (!container) return;
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const options = {
+        ...DEFAULT_EFFECT_OPTIONS,
+        ...effectOptions,
+        totalSideLightSticks: isMobile ? 8 : (effectOptions.totalSideLightSticks || DEFAULT_EFFECT_OPTIONS.totalSideLightSticks),
+        lightPairsPerRoadWay: isMobile ? 15 : (effectOptions.lightPairsPerRoadWay || DEFAULT_EFFECT_OPTIONS.lightPairsPerRoadWay),
+        colors: { ...DEFAULT_EFFECT_OPTIONS.colors, ...effectOptions.colors }
+      };
       options.distortion = distortions[options.distortion];
 
       const myApp = new App(container, options);
       appRef.current = myApp;
       myApp.loadAssets().then(myApp.init);
-    })();
+
+      // Pause when scrolled out of viewport
+      observer = new IntersectionObserver(([entry]) => {
+        if (!appRef.current) return;
+        if (entry.isIntersecting && !document.hidden) {
+          if (appRef.current.paused) {
+            appRef.current.paused = false;
+            appRef.current.tick();
+          }
+        } else {
+          appRef.current.paused = true;
+        }
+      }, { threshold: 0.05 });
+
+      observer.observe(container);
+    }, 100);
+
+    const handleVisibilityChange = () => {
+      if (!appRef.current) return;
+      if (document.hidden) {
+        appRef.current.paused = true;
+      } else {
+        if (appRef.current.paused) {
+          appRef.current.paused = false;
+          appRef.current.tick();
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
+      if (timerId) clearTimeout(timerId);
+      if (observer) observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (appRef.current) {
         appRef.current.dispose();
       }

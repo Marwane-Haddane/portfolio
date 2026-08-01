@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaGlobe, FaEnvelope, FaFileAlt, FaArrowLeft } from 'react-icons/fa';
 import './project.css';
 import { useNavigate } from 'react-router-dom';
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary';
 
 function ProjectDetail({ project }) {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ function ProjectDetail({ project }) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  const images = project.images || [project.image];
+  const images = (project.images || [project.image]).map(img => getOptimizedCloudinaryUrl(img, 1000));
   const hasMultipleImages = images.length > 1;
 
   return (
@@ -160,9 +161,11 @@ function ProjectDetail({ project }) {
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(124, 58, 237, 0.08)',
         }}>
           <img
-            src={project.image}
+            src={getOptimizedCloudinaryUrl(project.image, 1000)}
             alt={project.title}
             loading="lazy"
+            width="1000"
+            height="437"
             style={{
               width: '100%',
               height: '100%',

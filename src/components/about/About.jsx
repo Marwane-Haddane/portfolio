@@ -5,9 +5,12 @@ import ScrambledText from '../../jsrepo/ScrambledText';
 
 function About() {
   return (
-    <section id="about" style={{ position: 'relative', padding: '6rem 0 4rem', width: '100%' }}>
+    <section id="about" aria-label="About Me" style={{ position: 'relative', padding: '6rem 0 4rem', width: '100%' }}>
 
       <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '0 2rem' }}>
+        <h2 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: 0 }}>
+          Who I Am — About Marwane Haddane
+        </h2>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <TextPressure
             text="Who I Am?"
