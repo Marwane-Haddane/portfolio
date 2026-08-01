@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FlowingMenu from '../../jsrepo/FlowingMenu';
 import LogoLoop from '../../jsrepo/LogoLoop';
 import TextPressure from '../../jsrepo/TextPressure';
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary';
 import {
   SiKalilinux, SiWireshark, SiLinux,
   SiPython, SiJupyter, SiOpenai,
@@ -49,23 +50,35 @@ const featuredProjects = [
   {
     link: '#',
     text: 'WeSecure Platform',
-    hoverImage: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png',
+    hoverImage: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 600),
     texts: ['n8n for URL scaning', 'email phishing detection', 'Cryptography algorithms'],
-    images: ['https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/workflow_cm4quo.png', 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030286/mail_example_u6yr8h.png']
+    images: [
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/workflow_cm4quo.png', 600),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 600),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030286/mail_example_u6yr8h.png', 600)
+    ]
   },
   {
     link: '#',
     text: 'Memoria',
-    hoverImage: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030929/memoria_nvopnk.jpg',
+    hoverImage: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030929/memoria_nvopnk.jpg', 600),
     texts: ['Robot assisstant by AI', 'Platform for monitoring patient  ', 'Cloud Based Application'],
-    images: ['https://res.cloudinary.com/dnye0gigw/image/upload/v1778030927/dashboard_tiuy5q.png', 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030932/Hero_aj5lbx.png', 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030929/about_lc27v2.png']
+    images: [
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030927/dashboard_tiuy5q.png', 600),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030932/Hero_aj5lbx.png', 600),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030929/about_lc27v2.png', 600)
+    ]
   },
   {
     link: '#',
     text: 'Ai hub (still working on it)',
-    hoverImage: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg',
+    hoverImage: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 600),
     texts: ['ML projects', 'Chatbots', 'OpenCV'],
-    images: ['https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg']
+    images: [
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 600),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 600),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 600)
+    ]
   }
 ];
 
@@ -77,13 +90,13 @@ export const projectsData = [
     longDesc: 'A comprehensive, multi-layered cybersecurity automation platform. Built with n8n for real-time automated workflow orchestration and URL scanning. Integrates machine learning models for detecting email phishing attempts, and robust cryptographic algorithms to ensure data confidentiality and integrity. The dashboard provides a unified view of active threats and system vulnerability metrics.',
     domain: 'cyber', 
     type: 'project', 
-    image: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 
+    image: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 600), 
     link: null, 
     github: 'https://github.com/Marwane-Haddane/WeSecure.git',
     images: [
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/workflow_cm4quo.png', 
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030286/mail_example_u6yr8h.png'
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/workflow_cm4quo.png', 800), 
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030287/platform_eup0ed.png', 800), 
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030286/mail_example_u6yr8h.png', 800)
     ]
   },
   { 
@@ -93,11 +106,11 @@ export const projectsData = [
     longDesc: 'A futuristic hub acting as a playground for AI applications and experimental models. Features a suite of custom natural language chatbots, predictive ML modeling pages, and real-time computer vision showcases leveraging OpenCV. Integrated with Hugging Face transformers and OpenAI APIs, with interactive dashboards to test models on custom datasets.',
     domain: 'ai', 
     type: 'project', 
-    image: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 
+    image: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 600), 
     link: null, 
     github: null,
     images: [
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg'
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778032270/A_futuristic_and_sleek_UI_UX_202605060250_kwmgdh.jpg', 800)
     ]
   },
   { 
@@ -107,11 +120,11 @@ export const projectsData = [
     longDesc: 'Complete documentation and problem set solutions for Harvard University\'s CS50x (Introduction to Computer Science). The course builds a strong foundation in algorithmic thinking, data structures, memory management, and software design principles. Spans low-level programming in C, database management with SQL, web development with Flask, and scripting in Python.',
     domain: 'ai', 
     type: 'certif', 
-    image: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778031663/CS50x_mbz8os.png', 
+    image: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778031663/CS50x_mbz8os.png', 600), 
     link: 'https://certificates.cs50.io/9b8fa55f-f037-4ffe-95af-85d90b1bb996.pdf', 
     github: 'https://github.com/Marwane-Haddane/cs50.git',
     images: [
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778031663/CS50x_mbz8os.png'
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778031663/CS50x_mbz8os.png', 800)
     ]
   },
   { 
@@ -121,13 +134,13 @@ export const projectsData = [
     longDesc: 'A comprehensive cloud-based monitoring platform integrated with a physical robot assistant for patients suffering from Alzheimer\'s disease. The patient\'s status, location, and daily activities are collected and synced to a secure cloud platform in real-time, allowing family members and medical doctors to check the patient\'s status from a personalized web dashboard.',
     domain: 'ai', 
     type: 'project', 
-    image: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030932/Hero_aj5lbx.png', 
+    image: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030932/Hero_aj5lbx.png', 600), 
     link: 'https://memoria-9eac1.web.app/', 
     github: 'https://github.com/Marwane-Haddane/memoria.git',
     images: [
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030927/dashboard_tiuy5q.png', 
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030932/Hero_aj5lbx.png', 
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1778030929/about_lc27v2.png'
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030927/dashboard_tiuy5q.png', 800), 
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030932/Hero_aj5lbx.png', 800), 
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1778030929/about_lc27v2.png', 800)
     ]
   },
   {
@@ -137,13 +150,13 @@ export const projectsData = [
     longDesc: 'Completed the Google Cybersecurity Professional Certificate program. This intensive training covers key concepts in defensive cybersecurity including system vulnerabilities, threat detection (SIEM tools like Chronicle and Splunk), network protocol analysis (using Wireshark), scripting with Python, security operations with Linux, and standard incident response protocols.',
     domain: 'cyber',
     type: 'certif',
-    image: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1782276549/google-cybersecurity-professional-certificate-v-2_wxsbfw.png',
+    image: getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1782276549/google-cybersecurity-professional-certificate-v-2_wxsbfw.png', 600),
     link: 'https://www.credly.com/badges/0a29ef8f-3456-49f6-9efd-95d20de84e39/public_url',
     github: null,
     images: [
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1782276695/Google_Cybersecurity-1_kk39zx.png',
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1782276729/1781312599193_fqtneh.png',
-      'https://res.cloudinary.com/dnye0gigw/image/upload/v1782276549/unnamed_cgj8zd.png'
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1782276695/Google_Cybersecurity-1_kk39zx.png', 800),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1782276729/1781312599193_fqtneh.png', 800),
+      getOptimizedCloudinaryUrl('https://res.cloudinary.com/dnye0gigw/image/upload/v1782276549/unnamed_cgj8zd.png', 800)
     ]
   }
 ];
@@ -166,7 +179,7 @@ function ProjectCard({ project, index }) {
   return (
     <div className="project-card" style={{ animationDelay: `${index * 0.08}s` }}>
       <div className="project-card__image">
-        <img src={project.image} alt={project.title} loading="lazy" />
+        <img src={project.image} alt={project.title} loading="lazy" width="600" height="350" style={{ aspectRatio: '16/9', objectFit: 'cover' }} />
         <div className="project-card__overlay">
           <div className="project-card__links">
             {project.link && <a href={project.link} className="project-card__link" aria-label="Live demo">🔗</a>}

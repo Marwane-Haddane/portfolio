@@ -1,16 +1,28 @@
-import Hyperspeed from "../../jsrepo/Hyperspeed";
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ProfileCard from "../../jsrepo/ProfileCard";
 import me from "../../../public/me.webp";
-import code from "../../../public/code.png";
+import code from "../../../public/code.webp";
 import RotatingText from "../../jsrepo/RotatingText";
 import "./home.css";
+
+// Lazy-load the heavy Three.js Hyperspeed component
+const Hyperspeed = lazy(() => import("../../jsrepo/Hyperspeed"));
+
+/* Lightweight animated placeholder while Hyperspeed loads */
+const HyperspeedFallback = () => (
+  <div style={{
+    position: 'absolute',
+    inset: 0,
+    background: 'radial-gradient(ellipse at 50% 80%, #1a0533 0%, #08030e 60%, #000 100%)',
+    zIndex: 0,
+  }} />
+);
 
 function Home() {
   return (
     <div id="home">
       {/* Ensure the section is the relative parent for all absolute children */}
-      <section style={{
+      <section aria-label="Hero" style={{
         position: 'relative',
         background: '#08030e',
         minHeight: '100vh', // Changed to vh to fill screen
@@ -24,7 +36,9 @@ function Home() {
           zIndex: 0,
           pointerEvents: 'none' // Ensures clicks go through to the cards
         }}>
-          <Hyperspeed />
+          <Suspense fallback={<HyperspeedFallback />}>
+            <Hyperspeed />
+          </Suspense>
         </div>
 
         {/* CONTENT LAYER: Must be z-index 1 or higher */}
@@ -56,7 +70,7 @@ function Home() {
             <div className="right-column">
               <div className="hero-line">
                 <div className="hov">
-                  <span className="hero-static">Hello,</span>
+                  <h1 className="hero-static" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>Hello,</h1>
                 </div>
                 <div className="hov">
                   <span className="hero-rotating-box">
@@ -76,7 +90,7 @@ function Home() {
 
               <div className="hero-line" style={{ marginTop: '1rem' }}>
                 <div className="hov">
-                  <span className="hero-static-sm">Passionate by,</span>
+                  <h2 className="hero-static-sm">Passionate by,</h2>
                 </div>
                 <div className="hov">
                   <span className="hero-rotating-box" style={{ padding: '0.1em 0.4em' }}>
@@ -106,7 +120,7 @@ function Home() {
           zIndex: 2,
           lineHeight: 0
         }}>
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '150px' }}>
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" role="presentation" aria-hidden="true" style={{ display: 'block', width: '100%', height: '150px' }}>
             <defs>
               <linearGradient id="dividerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" style={{ stopColor: '#050209', stopOpacity: 1 }} />

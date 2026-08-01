@@ -39,6 +39,7 @@ const MenuItem = ({ link, text, image, hoverImage, texts, images, speed, textCol
   }, [scrollTexts, scrollImages]);
 
   useEffect(() => {
+    let observer = null;
     const setupMarquee = () => {
       if (!marqueeInnerRef.current) return;
       const marqueeContent = marqueeInnerRef.current.querySelector('.marquee__part');
@@ -56,11 +57,24 @@ const MenuItem = ({ link, text, image, hoverImage, texts, images, speed, textCol
         ease: 'none',
         repeat: -1
       });
+
+      if (itemRef.current) {
+        observer = new IntersectionObserver(([entry]) => {
+          if (!animationRef.current) return;
+          if (entry.isIntersecting) {
+            animationRef.current.play();
+          } else {
+            animationRef.current.pause();
+          }
+        }, { threshold: 0.05 });
+        observer.observe(itemRef.current);
+      }
     };
 
     const timer = setTimeout(setupMarquee, 100);
     return () => {
       clearTimeout(timer);
+      if (observer) observer.disconnect();
       if (animationRef.current) animationRef.current.kill();
     };
   }, [scrollTexts, scrollImages, repetitions, speed]);

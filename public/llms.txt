@@ -1,0 +1,21 @@
+# Marwane Haddane — Portfolio
+> Cybersecurity Engineering Student & Full-Stack / AI Developer
+
+## Overview
+Marwane Haddane is a Cybersecurity Engineering student at ENSA Fés. Experienced in ethical hacking, automated threat scanning, machine learning, robotics, and modern web application development.
+
+## Key Projects
+- **WeSecure Platform**: Automated cybersecurity vulnerability scanner and phishing classifier (Python, n8n, Flask, ML).
+- **Memoria**: Cloud-based Alzheimer patient monitoring platform with AI robot assistant (React, Raspberry Pi, LLaMA, SQLite).
+- **AI Hub**: Experimental hub for ML models, natural language chatbots, and OpenCV computer vision.
+
+## Certifications & Education
+- State Engineering Degree in Cybersecurity — ENSA Fès (Class of 2028)
+- Harvard CS50x (Computer Science)
+- Google Cybersecurity Professional Certificate
+- DataCamp LLM Development
+
+## Social Links
+- Portfolio: https://marwane-haddane.web.app
+- GitHub: https://github.com/Marwane-Haddane/
+- LinkedIn: https://www.linkedin.com/in/marwane-haddane/

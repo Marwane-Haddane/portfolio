@@ -1,6 +1,6 @@
 import React from 'react'
 import CardNav from '../../jsrepo/CardNav'
-import logo from '../../../public/logo2.png';
+import logo from '../../../public/logo2.webp';
 
 function Nav() {
     const items = [
@@ -44,7 +44,7 @@ function Nav() {
     return (
         <CardNav
             logo={logo}
-            logoAlt="Company Logo"
+            logoAlt="Marwane Haddane Logo"
             items={items}
             baseColor="rgb(0, 0,0, 0.5)"
             menuColor="#ffffffff"
@@ -56,7 +56,3 @@ function Nav() {
     );
 };
 export default Nav
-
-
-
-
