@@ -27,3 +27,10 @@ dist-ssr
 *.bak
 optimize-images.mjs
 .npm-cache
+artifacts.local/
+*.local.jpg
+firebase-debug.log
+.firebase/
+.env
+.env.*
+!.env.example

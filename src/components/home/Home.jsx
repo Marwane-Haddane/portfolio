@@ -1,7 +1,7 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import ProfileCard from "../../jsrepo/ProfileCard";
-import me from "../../../public/me.webp";
-import code from "../../../public/code.webp";
+const me = '/me.webp';
+const code = '/code.webp';
 import RotatingText from "../../jsrepo/RotatingText";
 import "./home.css";
 
@@ -13,12 +13,24 @@ const HyperspeedFallback = () => (
   <div style={{
     position: 'absolute',
     inset: 0,
-    background: 'radial-gradient(ellipse at 50% 80%, #1a0533 0%, #08030e 60%, #000 100%)',
+    background: '#08030e url(/hero-background.webp) center / cover no-repeat',
     zIndex: 0,
   }} />
 );
 
 function Home() {
+  const [graphicsEnabled, setGraphicsEnabled] = useState(false);
+  useEffect(() => {
+    const screen = window.matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)');
+    const update = () => setGraphicsEnabled(screen.matches);
+    const idle = window.requestIdleCallback ? window.requestIdleCallback(update, { timeout: 1200 }) : window.setTimeout(update, 250);
+    screen.addEventListener('change', update);
+    return () => {
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+      screen.removeEventListener('change', update);
+    };
+  }, []);
   return (
     <div id="home">
       {/* Ensure the section is the relative parent for all absolute children */}
@@ -36,9 +48,9 @@ function Home() {
           zIndex: 0,
           pointerEvents: 'none' // Ensures clicks go through to the cards
         }}>
-          <Suspense fallback={<HyperspeedFallback />}>
+          {graphicsEnabled ? <Suspense fallback={<HyperspeedFallback />}>
             <Hyperspeed />
-          </Suspense>
+          </Suspense> : <HyperspeedFallback />}
         </div>
 
         {/* CONTENT LAYER: Must be z-index 1 or higher */}
@@ -70,7 +82,7 @@ function Home() {
             <div className="right-column">
               <div className="hero-line">
                 <div className="hov">
-                  <h1 className="hero-static" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>Hello,</h1>
+                  <h1 aria-label="Marwane Haddane — Cybersecurity Engineering Student" className="hero-static" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>Hello,</h1>
                 </div>
                 <div className="hov">
                   <span className="hero-rotating-box">

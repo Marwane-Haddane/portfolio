@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaGlobe, FaEnvelope, FaFileAlt, FaArrowLeft } from 'react-icons/fa';
 import './project.css';
-import { useNavigate } from 'react-router-dom';
 import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary';
 
 function ProjectDetail({ project }) {
-  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
@@ -53,7 +51,7 @@ function ProjectDetail({ project }) {
           justifyContent: 'space-between',
         }}>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => window.location.assign('/#projects')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -161,15 +159,16 @@ function ProjectDetail({ project }) {
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(124, 58, 237, 0.08)',
         }}>
           <img
-            src={getOptimizedCloudinaryUrl(project.image, 1000)}
-            alt={project.title}
-            loading="lazy"
+            src={images[0]}
+            alt={project.alt || project.title}
+            loading="eager"
+            fetchPriority="high"
             width="1000"
             height="437"
             style={{
               width: '100%',
               height: '100%',
-              objectFit: 'cover',
+              objectFit: project.imageFit || (project.portrait ? 'contain' : 'cover'),
               display: 'block',
             }}
           />
@@ -226,12 +225,12 @@ function ProjectDetail({ project }) {
                 >
                   <img
                     src={imgUrl}
-                    alt={`${project.title} screenshot ${idx + 1}`}
+                    alt={idx === 0 ? (project.alt || project.title) : (project.galleryAlt?.[idx - 1] || `${project.title} screenshot ${idx + 1}`)}
                     loading="lazy"
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
+                      objectFit: project.galleryFit || 'cover',
                       display: 'block',
                     }}
                   />
@@ -443,10 +442,10 @@ function ProjectDetail({ project }) {
                   value="marwane-haddane"
                 />
                 <ContactLink
-                  href="mailto:marwaneehaddane5@gmail.com"
+                  href="mailto:marwanehaddane5@gmail.com"
                   icon={<FaEnvelope style={{ color: '#f87171', fontSize: '1.1rem' }} />}
                   label="Email"
-                  value="marwaneehaddane5@gmail.com"
+                  value="marwanehaddane5@gmail.com"
                 />
                 <ContactLink
                   href="https://wa.me/212649946554"

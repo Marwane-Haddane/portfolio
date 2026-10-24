@@ -277,9 +277,13 @@ const ProfileCardComponent = ({
 
     const initialX = (shell.clientWidth || 0) - ANIMATION_CONFIG.INITIAL_X_OFFSET;
     const initialY = ANIMATION_CONFIG.INITIAL_Y_OFFSET;
-    tiltEngine.setImmediate(initialX, initialY);
-    tiltEngine.toCenter();
-    tiltEngine.beginInitial(ANIMATION_CONFIG.INITIAL_DURATION);
+    if (window.matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)').matches) {
+      tiltEngine.setImmediate(initialX, initialY);
+      tiltEngine.toCenter();
+      tiltEngine.beginInitial(ANIMATION_CONFIG.INITIAL_DURATION);
+    } else {
+      tiltEngine.setImmediate(shell.clientWidth / 2, shell.clientHeight / 2);
+    }
 
     return () => {
       shell.removeEventListener('pointerenter', pointerEnterHandler);

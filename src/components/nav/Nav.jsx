@@ -1,6 +1,6 @@
 import React from 'react'
 import CardNav from '../../jsrepo/CardNav'
-import logo from '../../../public/logo2.webp';
+const logo = '/logo2.webp';
 
 function Nav() {
     const items = [

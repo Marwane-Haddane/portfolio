@@ -10,26 +10,26 @@ const MOBILE_BREAKPOINT = 768;
 const cardData = [
   {
     color: '#120F17',
-    title: 'Cybersecurity Engineer',
+    title: 'Cybersecurity Student',
     description: 'Passionate about Offensive Security, AI, Machine Learning, and Full-Stack Development.',
     label: 'Profile'
   },
   {
     color: '#120F17',
     title: 'Marwane Haddane',
-    description: 'Based in Fez; open to remote and hybrid opportunities worldwide.',
+    description: 'Based in Fès; seeking an international research internship for Summer 2027.',
     label: 'About me'
   },
   {
     color: '#120F17',
     title: 'My work',
-    description: "Web&ai development :\n •  Memoria: Real-time patient monitoring for Alzheimer's using Raspberry Pi & LLaMA \n • Drowsiness Detection: Real-time fatigue detection with Arduino hardware alerts.\n • Rubik's Solver: Computer vision-based color recognition and Kociemba solving algorithm. \n => Stack: React · Flask · n8n · LLaMA · SQLite · Tailwind \n \n Cyber Security Project :  \n • WeSecure: An automated cybersecurity platform for web vulnerability scanning.\n• Automation by n8n generates full audit reports \n•  AI phishing email threat classifier (95% accuracy).\n• Achieved 85% success rate in bypassing CAPTCHA systems via Python.\n => Tools: Python, Nmap, Wireshark, BurpSuite, Metasploit, SQLMap",
+    description: '• WeSecure: security checks and AI-assisted email triage.\n• Memoria: a team-built assistive AI prototype.\n• VART: ESP32 voice commands and sensor telemetry.\n• MySoil and RIHLA: Flutter mobile applications.\n• BaraSalfa, La Belle Maison, and RoboGenius: deployed websites.',
     label: 'Projects'
   },
   {
     color: '#120F17',
     title: 'Honors & Awards',
-    description: '\n • Leadership \n Vice-President @ RoboGenius: Leading 50+ engineers across 4 technical teams.\n • Awards \n1st Prize: GDG OpportunAI (Casablanca, 2025).\n3rd Prize: IEEE Competition (ENSA, 2024).\n • Volunteering \nCommunity Service: 160+ volunteer hours with the Ministry of Youth ',
+    description: '• President of RoboGenius.\n• Founder and Lead Organizer of GDGoC ENSAF.\n• External Affairs at SECOPS.\n• 1st Prize at GDG OpportunAI, Casablanca, 2025.',
     label: 'Highlighted Work'
   },
   {

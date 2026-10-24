@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
-import { Routes, Route, useParams, Navigate } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import './App.css';
+import { projectsData } from './project-data';
+import DeferredSection from './components/DeferredSection';
 
 // Above-the-fold components: loaded eagerly (Nav + Home are immediately visible)
 import Nav from './components/nav/Nav';
@@ -13,6 +15,10 @@ const Project = React.lazy(() => import('./components/project/Project'));
 const Experience = React.lazy(() => import('./components/experience/Experience'));
 const Contact = React.lazy(() => import('./components/contact/Contact'));
 const ProjectDetail = React.lazy(() => import('./components/project/ProjectDetail'));
+const loadAbout = () => import('./components/about/About');
+const loadProjects = () => import('./components/project/Project');
+const loadExperience = () => import('./components/experience/Experience');
+const loadContact = () => import('./components/contact/Contact');
 
 /* Minimal loading fallback — matches the dark theme */
 const SectionFallback = () => (
@@ -36,25 +42,25 @@ const SectionFallback = () => (
 );
 
 /* ── Main portfolio page ─────────────────────────────────── */
-function MainPage() {
+function MainPage({ sections }) {
   return (
     <>
       <Nav />
       <SocialSidebar />
       <main>
         <Home />
-        <Suspense fallback={<SectionFallback />}>
+        <DeferredSection html={sections?.about} load={loadAbout}>
           <About />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
+        </DeferredSection>
+        <DeferredSection html={sections?.projects} load={loadProjects}>
           <Project />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
+        </DeferredSection>
+        <DeferredSection html={sections?.experience} load={loadExperience}>
           <Experience />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
+        </DeferredSection>
+        <DeferredSection html={sections?.contact} load={loadContact}>
           <Contact />
-        </Suspense>
+        </DeferredSection>
       </main>
     </>
   );
@@ -64,37 +70,8 @@ function MainPage() {
 function ProjectPage() {
   const { id } = useParams();
 
-  // Dynamically import projectsData to avoid pulling it into the initial bundle
-  const [project, setProject] = React.useState(undefined);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    import('./components/project/Project').then((mod) => {
-      const found = mod.projectsData.find((p) => p.id === parseInt(id, 10));
-      setProject(found || null);
-      setLoading(false);
-    });
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        background: '#050209',
-        color: '#a78bfa',
-        fontSize: '1rem',
-        fontWeight: 600,
-        letterSpacing: '0.05em',
-      }}>
-        Loading…
-      </div>
-    );
-  }
-
-  if (!project) return <Navigate to="/" replace />;
+  const project = projectsData.find(item => String(item.id) === id);
+  if (!project) return <NotFound />;
 
   return (
     <Suspense fallback={
@@ -119,15 +96,19 @@ function ProjectPage() {
   );
 }
 
+function NotFound() {
+  return <main style={{ minHeight: '100vh', display: 'grid', placeContent: 'center', textAlign: 'center', color: '#fff' }}><h1>Page not found</h1><a href="/" style={{ color: '#a78bfa' }}>Back to Portfolio</a></main>;
+}
+
 /* ── App ─────────────────────────────────────────────────── */
-function App() {
+function App({ sections }) {
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage sections={sections} />} />
         <Route path="/project/:id" element={<ProjectPage />} />
         {/* Fallback: any unknown URL goes home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

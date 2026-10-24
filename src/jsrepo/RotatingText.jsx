@@ -1,11 +1,7 @@
 'use client';
 
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-
-function cn(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+import { motion as Motion, AnimatePresence } from 'motion/react';
 
 const RotatingText = forwardRef((props, ref) => {
   const {
@@ -141,7 +137,7 @@ const RotatingText = forwardRef((props, ref) => {
   }, [next, rotationInterval, auto]);
 
   return (
-    <motion.span
+    <Motion.span
       className={mainClassName}
       {...rest}
       layout
@@ -152,7 +148,7 @@ const RotatingText = forwardRef((props, ref) => {
         {texts[currentTextIndex]}
       </span>
       <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
-        <motion.span
+        <Motion.span
           key={currentTextIndex}
           style={splitBy === 'lines' ? { display: 'flex', flexDirection: 'column', width: '100%' } : { display: 'flex', flexWrap: 'wrap', whiteSpace: 'pre-wrap', position: 'relative' }}
           layout
@@ -163,9 +159,9 @@ const RotatingText = forwardRef((props, ref) => {
             return (
               <span key={wordIndex} className={splitLevelClassName} style={{ display: 'inline-flex' }}>
                 {wordObj.characters.map((char, charIndex) => (
-                  <motion.span
+                  <Motion.span
                     key={charIndex}
-                    initial={initial}
+                    initial={currentTextIndex === 0 ? false : initial}
                     animate={animate}
                     exit={exit}
                     transition={{
@@ -179,15 +175,15 @@ const RotatingText = forwardRef((props, ref) => {
                     style={{ display: 'inline-block' }}
                   >
                     {char}
-                  </motion.span>
+                  </Motion.span>
                 ))}
                 {wordObj.needsSpace && <span style={{ whiteSpace: 'pre' }}> </span>}
               </span>
             );
           })}
-        </motion.span>
+        </Motion.span>
       </AnimatePresence>
-    </motion.span>
+    </Motion.span>
   );
 });
 
