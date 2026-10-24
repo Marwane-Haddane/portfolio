@@ -431,8 +431,8 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.onTouchStart = this.onTouchStart.bind(this);
         this.onTouchEnd = this.onTouchEnd.bind(this);
         this.onContextMenu = this.onContextMenu.bind(this);
-
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        this.onWindowResize = this.onWindowResize.bind(this);
+        window.addEventListener('resize', this.onWindowResize);
       }
 
       onWindowResize() {
@@ -570,6 +570,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
       dispose() {
         this.disposed = true;
+        if (this.frameId) cancelAnimationFrame(this.frameId);
 
         if (this.renderer) {
           this.renderer.dispose();
@@ -581,7 +582,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
           this.scene.clear();
         }
 
-        window.removeEventListener('resize', this.onWindowResize.bind(this));
+        window.removeEventListener('resize', this.onWindowResize);
         if (this.container) {
           this.container.removeEventListener('mousedown', this.onMouseDown);
           this.container.removeEventListener('mouseup', this.onMouseUp);
@@ -600,6 +601,13 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
       tick() {
         if (this.disposed || this.paused || !this) return;
+        if (!this.frameId) this.frameId = requestAnimationFrame(() => {
+          this.frameId = 0;
+          this.tick();
+        });
+        const now = performance.now();
+        if (now - (this.lastFrame || 0) < 1000 / 30) return;
+        this.lastFrame = now;
         if (resizeRendererToDisplaySize(this.renderer, this.setSize)) {
           const canvas = this.renderer.domElement;
           this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -608,7 +616,6 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         const delta = this.clock.getDelta();
         this.render(delta);
         this.update(delta);
-        requestAnimationFrame(this.tick);
       }
     }
 
@@ -1093,6 +1100,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
     }
 
     let observer = null;
+    let inView = true;
     let timerId = null;
 
     timerId = setTimeout(() => {
@@ -1114,6 +1122,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
       // Pause when scrolled out of viewport
       observer = new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
         if (!appRef.current) return;
         if (entry.isIntersecting && !document.hidden) {
           if (appRef.current.paused) {
@@ -1132,7 +1141,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       if (!appRef.current) return;
       if (document.hidden) {
         appRef.current.paused = true;
-      } else {
+      } else if (inView) {
         if (appRef.current.paused) {
           appRef.current.paused = false;
           appRef.current.tick();

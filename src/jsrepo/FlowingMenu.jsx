@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { gsap } from 'gsap';
 import './FlowingMenu.css';
 
@@ -11,8 +11,8 @@ const MenuItem = ({ link, text, image, hoverImage, texts, images, speed, textCol
   const [repetitions, setRepetitions] = useState(4);
   const [isHovered, setIsHovered] = useState(false);
 
-  const scrollTexts = texts || [text, text, text];
-  const scrollImages = images || [image, image, image];
+  const scrollTexts = useMemo(() => texts || [text, text, text], [texts, text]);
+  const scrollImages = useMemo(() => images || [image, image, image], [images, image]);
 
   const animationDefaults = { duration: 0.6, ease: 'expo' };
 

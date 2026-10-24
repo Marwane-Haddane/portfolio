@@ -33,13 +33,10 @@ function About() {
               scrambleChars=".:"
               style={{ margin: 0, textAlign: 'left', lineHeight: '1.6', fontSize: '1.1rem' }}
             >
-              Cybersecurity Engineering student at ENSA Fes <br />
-              Passionate about offensive Security, AI, Machine Learning and Web development <br />
-              to design real-world solutions <br />
-              From vulnerability analysis platforms to AI-powered applications<br />
-              Actively involved in CTF competitions, hackathons, and tech leadership <br />
-              I’m currently seeking opportunities to apply and grow my skills <br />
-              in cybersecurity and AI
+              Fourth-year Cybersecurity and Digital Development student at ENSA Fès.<br />
+              I build security tools, AI prototypes, and web and mobile applications.<br />
+              President of RoboGenius and Founder of GDGoC ENSAF.<br />
+              Seeking an international research internship in cybersecurity or AI for Summer 2027.
             </ScrambledText>
           </div>
 

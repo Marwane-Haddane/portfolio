@@ -117,53 +117,68 @@ const TextPressure = ({
   }, [setSize]);
 
   useEffect(() => {
-    let rafId;
-    const animate = () => {
+    let rafId = 0;
+    let visible = false;
+    let lastFrame = 0;
+    let settling = 8;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const schedule = () => {
+      if (!rafId && visible && !document.hidden) rafId = requestAnimationFrame(animate);
+    };
+    const animate = now => {
+      rafId = 0;
+      if (!visible || document.hidden || !titleRef.current) return;
+      if (now - lastFrame < 1000 / 30) { schedule(); return; }
+      lastFrame = now;
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
-
-      if (titleRef.current) {
-        const titleRect = titleRef.current.getBoundingClientRect();
-        const maxDist = titleRect.width / 2;
-
-        spansRef.current.forEach(span => {
-          if (!span) return;
-
-          const rect = span.getBoundingClientRect();
-          const charCenter = {
-            x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2
-          };
-
-          const d = dist(mouseRef.current, charCenter);
-
-          const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 900)) : 400;
-          const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : 0;
-          const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : 1;
-
-          const newFontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
-
-          if (span.style.fontVariationSettings !== newFontVariationSettings) {
-            span.style.fontVariationSettings = newFontVariationSettings;
-          }
-          if (alpha && span.style.opacity !== alphaVal) {
-            span.style.opacity = alphaVal;
-          }
-        });
-      }
-
-      rafId = requestAnimationFrame(animate);
+      const maxDist = Math.max(1, titleRef.current.getBoundingClientRect().width / 2);
+      // Read all geometry before writing styles to avoid a layout for every letter.
+      const measurements = spansRef.current.filter(Boolean).map(span => ({ span, rect: span.getBoundingClientRect() }));
+      measurements.forEach(({ span, rect }) => {
+        const distance = dist(mouseRef.current, { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 });
+        const wdth = width ? Math.floor(getAttr(distance, maxDist, 5, 200)) : 100;
+        const wght = weight ? Math.floor(getAttr(distance, maxDist, 100, 900)) : 400;
+        const italVal = italic ? getAttr(distance, maxDist, 0, 1).toFixed(2) : 0;
+        span.style.fontVariationSettings = "'wght' " + wght + ", 'wdth' " + wdth + ", 'ital' " + italVal;
+        if (alpha) span.style.opacity = getAttr(distance, maxDist, 0, 1).toFixed(2);
+      });
+      const moving = dist(mouseRef.current, cursorRef.current) > 0.1;
+      if (!reducedMotion && (moving || settling-- > 0)) schedule();
     };
+    const wake = () => { settling = 8; schedule(); };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) wake();
+      else { cancelAnimationFrame(rafId); rafId = 0; }
+    });
+    if (containerRef.current) observer.observe(containerRef.current);
+    window.addEventListener('mousemove', wake, { passive: true });
+    window.addEventListener('touchmove', wake, { passive: true });
+    window.addEventListener('scroll', wake, { passive: true });
+    document.addEventListener('visibilitychange', wake);
+    return () => {
+      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      window.removeEventListener('mousemove', wake);
+      window.removeEventListener('touchmove', wake);
+      window.removeEventListener('scroll', wake);
+      document.removeEventListener('visibilitychange', wake);
+    };
+  }, [width, weight, italic, alpha, fontSize]);
 
-    animate();
-    return () => cancelAnimationFrame(rafId);
-  }, [width, weight, italic, alpha]);
+  useEffect(() => {
+    if (document.querySelector('link[data-text-pressure-font]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = fontUrl;
+    link.dataset.textPressureFont = '';
+    document.head.appendChild(link);
+  }, [fontUrl]);
 
   const styleElement = useMemo(() => {
     return (
       <style>{`
-        @import url('${fontUrl}');
 
         .flex {
           display: flex;
@@ -190,7 +205,7 @@ const TextPressure = ({
         }
       `}</style>
     );
-  }, [fontFamily, fontUrl, textColor, strokeColor, strokeWidth]);
+  }, [textColor, strokeColor, strokeWidth]);
 
   const dynamicClassName = [className, flex ? 'flex' : '', stroke ? 'stroke' : ''].filter(Boolean).join(' ');
 
@@ -206,7 +221,8 @@ const TextPressure = ({
       }}
     >
       {styleElement}
-      <h1
+      <h2
+        aria-label={text.trim()}
         ref={titleRef}
         className={`text-pressure-title ${dynamicClassName}`}
         style={{
@@ -237,7 +253,7 @@ const TextPressure = ({
             {char}
           </span>
         ))}
-      </h1>
+      </h2>
     </div>
   );
 };
