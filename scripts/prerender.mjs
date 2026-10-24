@@ -1,7 +1,7 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { createServer } from 'vite';
-import { credentials, profile, projects } from '../src/content.js';
+import { credentials, profile, projects, projectIds as ids } from '../src/content.js';
 
 const root = resolve(import.meta.dirname, '..');
 const output = join(root, 'dist');
@@ -11,7 +11,6 @@ const escape = value => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': 
 const json = value => JSON.stringify(value).replace(/</g, '\\u003c');
 const title = 'Marwane Haddane | Cybersecurity, AI & Software';
 const description = 'Marwane Haddane, engineering student at ENSA Fès. Explore cybersecurity, AI, embedded systems, and software projects. Seeking an international research internship in Summer 2027.';
-const ids = { wesecure: 1, memoria: 7, vart: 9, mysoil: 10, rihla: 11, barasalfa: 12, 'la-belle-maison': 13, robogenius: 14 };
 const css = (await readdir(join(output, 'assets'))).filter(file => file.endsWith('.css')).map(file => '/assets/' + file);
 const extraStyles = css.filter(file => !template.includes(file)).map(file => '<link rel="stylesheet" href="' + file + '" />').join('');
 const routes = ['/', ...projects.map(project => `/project/${ids[project.slug]}/`), '/project/5/', '/project/8/', '/404.html'];

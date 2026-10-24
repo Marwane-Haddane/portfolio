@@ -1,7 +1,6 @@
-import { projects } from './content';
+import { projects, projectIds as ids } from './content';
 import { getOptimizedCloudinaryUrl } from './utils/cloudinary';
 
-const ids = { wesecure: 1, memoria: 7, vart: 9, mysoil: 10, rihla: 11, barasalfa: 12, 'la-belle-maison': 13, robogenius: 14 };
 export const projectsData = [
   ...projects.map(project => ({
     ...project, id: ids[project.slug], desc: project.description,

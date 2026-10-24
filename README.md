@@ -1,16 +1,45 @@
-# React + Vite
+# Marwane Haddane — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio for cybersecurity, AI, desktop, embedded, and mobile projects. Built with React and Vite, with prerendered project pages for search engines and link previews.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```sh
+npm ci
+npm run dev
+```
 
-## React Compiler
+## Production checks
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```sh
+npm run build
+npm run verify
+npm run lint
+npm run preview -- --host 127.0.0.1 --port 4178
+```
 
-## Expanding the ESLint configuration
+The build produces the homepage, 12 project pages, two certificate pages, and a custom 404. It also generates `dist/sitemap.xml` and `dist/llms.txt`. Verification checks rendered content, unique routes, headings, canonical URLs, structured data, and local asset links. The original Hyperspeed component has four existing React Compiler warnings; lint has no errors.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Updating projects
+
+Edit `src/content.js`; assign each project a stable numeric route in `projectIds`. The grid, detail pages, sitemap, and structured data share this catalogue. Preserve existing route IDs.
+
+Project images live in `public/projects/`. Covers have 480px and 960px WebP versions; supporting gallery images load lazily. The October 24 additions use selected supplied screenshots, not newly generated UI. Moru design references, preview modes, and test captures are identified in image descriptions and visible detail-page captions.
+
+`scripts/project-context-media.json` records the selected images and their source paths relative to the supplied context folder. To regenerate those compressed copies:
+
+```sh
+node scripts/import-project-context-media.mjs "PATH_TO/24-10 project gpt plus"
+```
+
+See `scripts/project-media.md` for earlier VART and app-collage provenance.
+
+## Hosting
+
+Firebase Hosting serves `dist/` for project `marwane-haddane`. Deploy only when requested:
+
+```sh
+firebase deploy --only hosting --project marwane-haddane
+```
+
+Local captures, audit reports, Firebase caches, and environment files are excluded from Git. The portfolio uses EmailJS for the contact form; tests should not send real email.
