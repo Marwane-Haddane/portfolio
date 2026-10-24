@@ -173,6 +173,7 @@ function ProjectDetail({ project }) {
             }}
           />
         </div>
+        {project.caption && <p style={{ margin: '0.75rem 0 0', color: '#b6a6c4', fontSize: '0.8rem', lineHeight: 1.6 }}>{project.caption}</p>}
       </section>
 
       {/* ─── Main Content Grid ─── */}

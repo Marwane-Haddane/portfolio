@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-24",
+  "sourceFolder": "24-10 project gpt plus",
+  "images": {
+    "moru-desktop": [
+      "MORU-PROJECT-GUIDE/images/01-desktop-design.png",
+      "Supplied desktop design reference"
+    ],
+    "moru-waiting": [
+      "MORU-PROJECT-GUIDE/images/03-waiting-for-answer.png",
+      "Supplied waiting-state design reference"
+    ],
+    "orbit-pointer": [
+      "Orbit-Project-Guide/images/02-pointer-current-preview.png",
+      "Implemented controller in Preview mode"
+    ],
+    "orbit-tools": [
+      "Orbit-Project-Guide/images/05-tools-current-preview.png",
+      "Implemented tools in Preview mode"
+    ],
+    "slidelink-desktop": [
+      "SlideLink-Project-Guide/Photos/Windows/03-paired-sharing-demo.png",
+      "Native Windows capture against test server"
+    ],
+    "slidelink-trackpad": [
+      "SlideLink-Project-Guide/Photos/Android/03-trackpad-with-screen-demo.png",
+      "Native Android emulator capture in demo session"
+    ],
+    "slidelink-slides": [
+      "SlideLink-Project-Guide/Photos/Android/04-slides.png",
+      "Native Android emulator capture in demo session"
+    ],
+    "furniture-mobile-home": [
+      "La Belle Maison Furniture App/mobile-app-reference/images/phone-home-final-readable-banner.png",
+      "Actual Android phone capture"
+    ],
+    "furniture-mobile-collection": [
+      "La Belle Maison Furniture App/mobile-app-reference/images/phone-collection-final.png",
+      "Actual Android phone capture"
+    ],
+    "furniture-mobile-assistant": [
+      "La Belle Maison Furniture App/mobile-app-reference/images/phone-assistant-english-final.png",
+      "Actual Android phone capture"
+    ],
+    "barasalfa-app-home": [
+      "Bara Salfa/ui/app-screen-previews/01-home.png",
+      "Flutter UI preview"
+    ]
+  }
+}

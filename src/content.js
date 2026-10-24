@@ -3,7 +3,52 @@ export const profile = {
   github: 'https://github.com/Marwane-Haddane', linkedin: 'https://www.linkedin.com/in/marwane-haddane/', site: 'https://marwane-haddane.web.app',
 };
 export const categories = ['All work', 'Cybersecurity', 'AI & embedded', 'Web & mobile'];
+export const projectIds = { wesecure: 1, memoria: 7, vart: 9, mysoil: 10, rihla: 11, barasalfa: 12, 'la-belle-maison': 13, robogenius: 14, moru: 15, orbit: 16, slidelink: 17, 'la-belle-maison-mobile': 18 };
 export const projects = [
+  {
+    slug: 'moru', title: 'Moru', category: 'AI & embedded', subtitle: 'A companion for browser work.', status: 'Desktop prototype', year: '2026',
+    description: 'A Windows AI companion combining supervised browser tasks, collaborating agents, and a character that reflects task progress.',
+    role: 'Desktop & AI integration', tags: ['Electron', 'Node.js', 'Playwright', 'LLMs'], image: 'moru-desktop', imageFit: 'contain', cardImageFit: 'cover', cardImagePosition: 'center 30%',
+    alt: 'Supplied Moru desktop design reference showing the companion, chat, and collaborator tree', caption: 'Supplied design reference with a demonstration provider; live model workflows remain under verification.',
+    gallery: ['moru-waiting'], galleryFit: 'contain', galleryAlt: ['Moru waiting-state design reference with a collaborator question and user controls'],
+    problem: 'Make agent activity and browser tasks easier to follow, supervise, and interrupt.',
+    built: ['Integrated an Electron interface with a local agent runtime and streamed progress.', 'Connected controlled Chromium browsing, collaborator coordination, and shared findings.', 'Added pause, stop, questions, and approval flows with visible companion states.'],
+    relevance: 'Human–AI interaction, agent orchestration, and supervised browser automation.',
+    limitation: 'A desktop prototype. Real-provider chat, browsing, and team synthesis still need live verification.',
+  },
+  {
+    slug: 'orbit', title: 'Orbit', category: 'Web & mobile', subtitle: 'Your PC, in hand.', status: 'Windows + Android development builds', year: '2026',
+    description: 'A phone controller for Windows with a touchpad, app launcher, media controls, screen capture, and a signature pad.',
+    role: 'Full-stack & Windows integration', tags: ['React', 'Node.js', 'C# / .NET', 'WebSockets'], image: 'orbit-pointer', imageFit: 'contain',
+    alt: 'Orbit’s implemented landscape touchpad interface in Preview mode', caption: 'Implemented controller preview; sample applications are shown in Preview mode.',
+    gallery: ['orbit-tools'], galleryFit: 'contain', galleryAlt: ['Orbit tools preview showing screenshots, screen recording, and signature actions'],
+    problem: 'Bring everyday PC controls to a phone on the same local Wi-Fi network.',
+    built: ['Connected a React controller to a Node.js host and native Windows helper.', 'Implemented pairing, app discovery, pointer gestures, typing, and media controls.', 'Packaged the Windows dashboard and Android client with capture and signature tools.'],
+    relevance: 'Cross-device interaction, native integration, and real-time input systems.',
+    limitation: 'Development builds for trusted local Wi-Fi. Hardware-specific behavior and wider release testing remain in progress. Selected Windows integration reuses MIT-licensed WinDock components.',
+  },
+  {
+    slug: 'slidelink', title: 'SlideLink', category: 'Web & mobile', subtitle: 'Present from your phone.', status: 'Native app prototype', year: '2026',
+    description: 'Native Android and Windows apps for wireless mouse control, presentation slides, and a screen preview enabled by the PC owner.',
+    role: 'Desktop & Android development', tags: ['Python', 'FastAPI', 'Java', 'WebSockets'], image: 'slidelink-desktop', imageFit: 'contain',
+    alt: 'Actual SlideLink Windows companion screenshot during a simulated sharing test', caption: 'Native Windows UI captured against a test server; the gallery shows native Android screens.',
+    gallery: ['slidelink-trackpad', 'slidelink-slides'], galleryFit: 'contain', galleryAlt: ['SlideLink Android trackpad and shared-screen preview in a demo session', 'SlideLink Android presentation controls and speaker timer'],
+    problem: 'Let presenters move away from their laptop while retaining pointer, slide, and screen-view controls.',
+    built: ['Built a Python/FastAPI service and native CustomTkinter Windows companion.', 'Implemented Java Android touch controls, slide navigation, and JPEG screen viewing.', 'Separated phone approval, input permission, and screen-sharing consent.'],
+    relevance: 'Permission-aware interfaces, authenticated sessions, and cross-device input.',
+    limitation: 'A local-network prototype. The latest Android layout still needs physical-device acceptance; production signing and a standalone Windows installer remain future work.',
+  },
+  {
+    slug: 'la-belle-maison-mobile', title: 'La Belle Maison — Mobile', category: 'Web & mobile', subtitle: 'Furniture discovery, on device.', status: 'Android prototype', year: '2026',
+    description: 'A Flutter furniture app with local catalogue search, colour matching, 360° examples, and an optional on-device Qwen assistant.',
+    role: 'Mobile & on-device AI development', tags: ['Flutter', 'Riverpod', 'Qwen2.5', 'ONNX'], image: 'furniture-mobile-home', portrait: true,
+    alt: 'Actual La Belle Maison Android home screen with furniture categories and a custom-space banner', caption: 'Phone capture from the Flutter app; separate from the furniture website.',
+    gallery: ['furniture-mobile-collection', 'furniture-mobile-assistant'], galleryFit: 'contain', galleryAlt: ['La Belle Maison Android furniture collection and 360-degree examples', 'La Belle Maison on-device assistant responding in French, Arabic, and English'],
+    problem: 'Help customers explore furniture and room ideas while keeping catalogue and optional AI work on their phone.',
+    built: ['Built the Flutter catalogue, local search, room projects, and colour-matching flows.', 'Integrated optional CLIP photo search and Qwen inference through native model runtimes.', 'Added local model-pack downloads, multilingual assistant prompts, and 360° examples.'],
+    relevance: 'On-device inference, retrieval, mobile resource constraints, and visual search.',
+    limitation: 'Inference is slow on tested hardware, and wider device validation remains ongoing. Room-image generation is not integrated into the app.',
+  },
   {
     slug: 'wesecure', legacyId: 1, title: 'WeSecure', category: 'Cybersecurity', subtitle: 'Security workflows, connected.', status: 'Working prototype', year: '2026',
     description: 'A Flask platform that brings web security checks, AI-assisted phishing classification, and cryptography tools into one workflow.',
@@ -45,7 +90,7 @@ export const projects = [
     problem: 'Agricultural software needs to make mapping and field information understandable on a phone, in languages farmers use.',
     built: ['Built multilingual Flutter screens with Riverpod state management.', 'Implemented parcel tracing and agricultural information views.', 'Integrated a conversational assistant tailored to Darija.'],
     relevance: 'Multilingual human–computer interaction, mobile mapping, and accessible AI interfaces.',
-    limitation: 'A development prototype. Satellite-data coverage, advice quality, and real-world farming outcomes need further evaluation.',
+    limitation: 'A development prototype. Some map overlays and readings are synthetic, irrigation is simulated, and advice quality needs evaluation.',
   },
   {
     slug: 'rihla', title: 'RIHLA', category: 'Web & mobile', subtitle: 'A little closer to Morocco.', status: 'Android prototype', year: '2026',
@@ -61,7 +106,8 @@ export const projects = [
   {
     slug: 'barasalfa', title: 'BaraSalfa', category: 'Web & mobile', subtitle: 'A social game, across screens.', status: 'Live web + mobile prototype', year: '2026',
     description: 'A Moroccan social-deduction game with a browser edition and a Flutter prototype for shared rooms and voice play.',
-    role: 'Web & mobile developer', tags: ['React', 'Flutter', 'Firebase', 'Agora'], image: 'barasalfa', alt: 'Screenshot of the deployed BaraSalfa browser game', caption: 'Capture of the deployed web edition',
+    role: 'Web & mobile developer', tags: ['React', 'Flutter', 'Firebase', 'Agora'], image: 'barasalfa', alt: 'Screenshot of the deployed BaraSalfa browser game', caption: 'Deployed web edition; gallery images show the newer Flutter app preview.',
+    gallery: ['barasalfa-app-home'], galleryFit: 'contain', galleryAlt: ['BaraSalfa Flutter home screen preview with Arabic artwork and offline/online mode selection'],
     live: 'https://bara-salfa-by-marwane.web.app/',
     problem: 'Adapt a social party game to both in-person and online play while keeping the room and player experience clear.',
     built: ['Built the React browser edition and game interface.', 'Developed Flutter lobby and game-state flows.', 'Integrated Firebase room synchronization and Agora voice rooms in the mobile prototype.'],
@@ -95,5 +141,5 @@ export const credentials = [
 export function findProject(path) {
   if (!/^\/project\//.test(path)) return undefined;
   const id = path.replace(/\/$/, '').split('/')[2];
-  return projects.find(project => project.slug === id || (project.legacyId !== undefined && String(project.legacyId) === id));
+  return projects.find(project => project.slug === id || String(projectIds[project.slug]) === id);
 }

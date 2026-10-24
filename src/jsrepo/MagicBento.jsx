@@ -23,7 +23,7 @@ const cardData = [
   {
     color: '#120F17',
     title: 'My work',
-    description: '• WeSecure: security checks and AI-assisted email triage.\n• Memoria: a team-built assistive AI prototype.\n• VART: ESP32 voice commands and sensor telemetry.\n• MySoil and RIHLA: Flutter mobile applications.\n• BaraSalfa, La Belle Maison, and RoboGenius: deployed websites.',
+    description: '• WeSecure: security workflows.\n• Moru: supervised AI agents.\n• Orbit & SlideLink: phone-to-PC interaction.\n• La Belle Maison Mobile: on-device AI.\n• VART, Memoria, MySoil, RIHLA, and more below.',
     label: 'Projects'
   },
   {

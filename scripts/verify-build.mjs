@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
-import { projects } from '../src/content.js';
+import { projects, projectIds as ids } from '../src/content.js';
 const output = join(import.meta.dirname, '../dist');
-const ids = { wesecure: 1, memoria: 7, vart: 9, mysoil: 10, rihla: 11, barasalfa: 12, 'la-belle-maison': 13, robogenius: 14 };
+assert.equal(new Set(projects.map(project => ids[project.slug])).size, projects.length, 'Project routes are unique');
+for (const project of projects) assert(Number.isInteger(ids[project.slug]), `${project.title}: valid project route`);
 const pages = ['/', ...projects.map(project => `/project/${ids[project.slug]}/`), '/project/5/', '/project/8/'];
 for (const path of pages) {
   const html = await readFile(join(output, path, 'index.html'), 'utf8');
