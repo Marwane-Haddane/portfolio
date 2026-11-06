@@ -62,7 +62,7 @@ function ProjectCard({ project, index }) {
   return (
     <div className="project-card" style={{ animationDelay: `${index * 0.08}s` }}>
       <div className="project-card__image">
-        <img src={project.image} alt={project.alt || project.title} loading="lazy" decoding="async" width="600" height="350" style={{ aspectRatio: '16/9', objectFit: project.cardImageFit || project.imageFit || (project.portrait ? 'contain' : 'cover'), objectPosition: project.cardImagePosition || 'center' }} />
+        <img src={project.image} srcSet={project.imageSrcSet} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1000px) 45vw, 400px" alt={project.alt || project.title} loading="lazy" decoding="async" width="960" height="540" style={{ objectFit: project.type === 'certif' ? 'contain' : 'cover', background: project.type === 'certif' ? '#fff' : undefined }} />
         <div className="project-card__overlay">
           <div className="project-card__links">
             {project.link && <a href={project.link} className="project-card__link" aria-label="Live demo">🔗</a>}

@@ -9,7 +9,7 @@ function ProjectDetail({ project }) {
   }, []);
 
   const images = (project.images || [project.image]).map(img => getOptimizedCloudinaryUrl(img, 1000));
-  const hasMultipleImages = images.length > 1;
+  const hasMultipleImages = project.imageKind !== 'illustration' && (!!project.coverImage || images.length > 1);
 
   return (
     <div style={{
@@ -152,23 +152,25 @@ function ProjectDetail({ project }) {
       }}>
         <div style={{
           width: '100%',
-          aspectRatio: '16 / 7',
+          aspectRatio: '16 / 9',
           borderRadius: '20px',
           overflow: 'hidden',
           border: '1px solid rgba(124, 58, 237, 0.2)',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(124, 58, 237, 0.08)',
         }}>
           <img
-            src={images[0]}
+            src={project.coverImage || images[0]}
+            srcSet={project.imageSrcSet}
+            sizes="(max-width: 1300px) calc(100vw - 64px), 1236px"
             alt={project.alt || project.title}
             loading="eager"
             fetchPriority="high"
-            width="1000"
-            height="437"
+            width="960"
+            height="540"
             style={{
               width: '100%',
               height: '100%',
-              objectFit: project.imageFit || (project.portrait ? 'contain' : 'cover'),
+              objectFit: project.coverImage ? 'cover' : 'contain',
               display: 'block',
             }}
           />
@@ -182,12 +184,12 @@ function ProjectDetail({ project }) {
         margin: '0 auto',
         padding: '0 2rem 4rem',
         display: 'grid',
-        gridTemplateColumns: '1fr',
+        gridTemplateColumns: 'minmax(0, 1fr)',
         gap: '3rem',
       }}>
         {/* Gallery */}
         {hasMultipleImages && (
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h3 style={{
               fontSize: '0.8rem',
               fontWeight: 700,
@@ -214,8 +216,9 @@ function ProjectDetail({ project }) {
                   key={idx}
                   style={{
                     flexShrink: 0,
-                    width: 'min(100%, 560px)',
-                    aspectRatio: '16 / 10',
+                    width: 'max-content',
+                    maxWidth: '100%',
+                    alignSelf: 'flex-start',
                     borderRadius: '16px',
                     overflow: 'hidden',
                     border: '1px solid rgba(124, 58, 237, 0.2)',
@@ -226,12 +229,13 @@ function ProjectDetail({ project }) {
                 >
                   <img
                     src={imgUrl}
-                    alt={idx === 0 ? (project.alt || project.title) : (project.galleryAlt?.[idx - 1] || `${project.title} screenshot ${idx + 1}`)}
+                    alt={idx === 0 ? `${project.title} original screenshot` : (project.galleryAlt?.[idx - 1] || `${project.title} screenshot ${idx + 1}`)}
                     loading="lazy"
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: project.galleryFit || 'cover',
+                      width: 'auto',
+                      height: 'auto',
+                      maxWidth: '100%',
+                      maxHeight: 'min(65vh, 560px)',
                       display: 'block',
                     }}
                   />
@@ -258,7 +262,7 @@ function ProjectDetail({ project }) {
         {/* Two-column: Description + Sidebar */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
+            gridTemplateColumns: 'minmax(0, 1fr)',
           gap: '2.5rem',
         }}
           className="detail-two-col"
@@ -266,7 +270,7 @@ function ProjectDetail({ project }) {
           <style>{`
             @media (min-width: 1024px) {
               .detail-two-col {
-                grid-template-columns: 3fr 2fr !important;
+                grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) !important;
               }
             }
           `}</style>
@@ -493,7 +497,7 @@ function ContactLink({ href, icon, label, value }) {
       }}
     >
       {icon}
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, overflowWrap: 'anywhere' }}>
         <span style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)' }}>
           {label}
         </span>

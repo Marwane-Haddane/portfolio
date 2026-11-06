@@ -2,9 +2,19 @@ import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { projects, projectIds as ids } from '../src/content.js';
+import sharp from 'sharp';
 const output = join(import.meta.dirname, '../dist');
 assert.equal(new Set(projects.map(project => ids[project.slug])).size, projects.length, 'Project routes are unique');
 for (const project of projects) assert(Number.isInteger(ids[project.slug]), `${project.title}: valid project route`);
+for (const project of projects) {
+  for (const width of [480, 960]) {
+    const file = await readFile(join(output, `projects/${project.cover}-${width}.webp`));
+    const metadata = await sharp(file).metadata();
+    assert.equal(metadata.width, width, `${project.title}: cover width`);
+    assert.equal(metadata.height, width * 9 / 16, `${project.title}: cover matches the 16:9 frame`);
+    assert(file.byteLength < 180_000, `${project.title}: cover stays lightweight`);
+  }
+}
 const pages = ['/', ...projects.map(project => `/project/${ids[project.slug]}/`), '/project/5/', '/project/8/'];
 for (const path of pages) {
   const html = await readFile(join(output, path, 'index.html'), 'utf8');

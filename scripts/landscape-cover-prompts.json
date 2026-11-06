@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-24",
+  "mode": "Built-in image_gen editing",
+  "purpose": "Reflow seven source screenshots as flat landscape portfolio presentations. Original captures stay in galleries. No devices, added backgrounds, black padding or new app features.",
+  "output": "public/projects/<slug>-cover-v2-{480,960}.webp",
+  "edits": [
+    {
+      "project": "moru",
+      "source": "C:/1Project/code_interst/ai/calude cli + mcp/1111 tracking/24-10 project gpt plus/MORU-PROJECT-GUIDE/images/01-desktop-design.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Preserve the furry coffee-colored Moru creature, its two smaller collaborators, cream page header, companion/team/sidebar and chat. Recompose in a compact landscape application layout, stage left, compact chat and companion/team right, so content fills canvas. Existing black creature stage is content and should remain; do not add black outside it. Keep the creature exactly recognisable.",
+      "generatedFile": "exec-bd34c18f-3d6c-4259-9ecf-3e3303822108.png"
+    },
+    {
+      "project": "orbit",
+      "source": "C:/1Project/code_interst/ai/calude cli + mcp/1111 tracking/24-10 project gpt plus/Orbit-Project-Guide/images/02-pointer-current-preview.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Preserve all six pinned app icons, Orbit branding, Studio PC Preview mode, dotted touchpad, pointer hint, four mouse controls and bottom navigation. Extend the touchpad and increase layout vertical room naturally to fill 16:9; no added content.",
+      "generatedFile": "exec-c267e905-45b0-4bc9-bf5f-27011c95ff4a.png"
+    },
+    {
+      "project": "slidelink",
+      "source": "C:/1Project/code_interst/ai/calude cli + mcp/1111 tracking/24-10 project gpt plus/SlideLink-Project-Guide/Photos/Windows/03-paired-sharing-demo.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Preserve the full interface: SlideLink header and DEMO Phone reconnecting, same headline, blue illustration of monitor/phone already inside UI, all three toggles, Stop sharing, Stop session and first-run footer. Make existing layout wider and more compact vertically to fit 16:9, preserving text and original illustration.",
+      "generatedFile": "exec-167bc332-22ee-47dd-be30-248fa0bcc2ed.png"
+    },
+    {
+      "project": "la-belle-maison-mobile",
+      "source": "C:/1Project/code_interst/ai/calude cli + mcp/1111 tracking/24-10 project gpt plus/La Belle Maison Furniture App/mobile-app-reference/images/phone-home-final-readable-banner.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Reflow this portrait app home into landscape: top brand/header and search, left column with headline and the same eight furniture/space category icons, right wide interior illustration banner with original text and Create a space button, original app navigation at bottom. Preserve the original beige/white/copper palette and furniture illustration. No product photography invented. No phone mockup. The entire canvas is the original app UI arranged horizontally.",
+      "generatedFile": "exec-c5e5b2b5-8eb2-408e-9c66-1fe23e1f42f6.png"
+    },
+    {
+      "project": "wesecure",
+      "source": "C:/1Project/code_interst/certif/cs50/finale/workflow n8n & api/platform.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Preserve exact layout and all content. Increase vertical space of the existing navy grid page smoothly to 16:9, distributing header, headline, paragraph, two buttons and three feature cards vertically. Keep all three cards fully visible with unchanged titles. No extra content.",
+      "generatedFile": "exec-d4dadd58-755b-4917-b924-71a217d18fa5.png"
+    },
+    {
+      "project": "mysoil",
+      "source": "C:/1Project/agritech/mysoil_flutter/test_device_home.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Reflow dashboard horizontally: MySoil header at top with Oliviers selector; greeting and subtitle; existing blue 20°C weather panel left; existing pale green Mes parcelles 7 and Surface totale 12,6 ha tiles and Oliviers warning right; original five-item navigation at bottom. Preserve exact French wording and values. Same existing rain illustration and colors. No new data, maps or feature claims. One flat seamless UI, no phones.",
+      "generatedFile": "exec-b0f2921f-55a0-451e-9eb4-8f6b237ed71b.png"
+    },
+    {
+      "project": "rihla",
+      "source": "C:/1Project/code_interst/ai/calude cli + mcp/travel application/rihla-mobile/artifacts/android-explore.png",
+      "prompt": "Use case: precise-object-edit / compositing. Asset: portfolio cover, output exactly 16:9 landscape, 1600x900 if possible. Edit the supplied screenshot into one continuous full-bleed flat landscape UI presentation. Preserve all existing branding, colors, illustrations, wording and UI content; reflow existing sections to fit landscape with crisp legible typography. This is a presentation adaptation of the same interface, not a new feature design. No device frames, phones around screenshots, mockups, floating screenshot cards, external backdrop, extra slogans, invented features, black padding, letterboxing, or cropping away important content. The UI itself must reach every canvas edge. Remove only operating-system status/navigation bars. Reflow the same Explore app screen horizontally. RIHLA brand and location top; left column original headline, search, categories and trip-planning section; right column same photograph of Moroccan craftsman and Inside the medina caption, existing Fès journey. Original app nav across bottom. Preserve same person and original cultural photo, exact wording and green/ivory palette. No extra photos, map, features or phones.",
+      "generatedFile": "exec-9a7c3884-833a-438c-8e7f-1bfb0bd87979.png"
+    }
+  ]
+}
