@@ -23,14 +23,16 @@ const cardData = [
   {
     color: '#120F17',
     title: 'My work',
-    description: '• WeSecure: security workflows.\n• Moru: supervised AI agents.\n• Orbit & SlideLink: phone-to-PC interaction.\n• La Belle Maison Mobile: on-device AI.\n• VART, Memoria, MySoil, RIHLA, and more below.',
-    label: 'Projects'
+    description: '• WeSecure: security workflows.\n• FleetSense: maps & 3D inspection.\n• Feedia: multilingual RAG.\n• Moru: supervised AI agents.\n• Vision, IoT, desktop & mobile apps below.',
+    label: 'Projects',
+    alignTop: true
   },
   {
     color: '#120F17',
     title: 'Honors & Awards',
     description: '• President of RoboGenius.\n• Founder and Lead Organizer of GDGoC ENSAF.\n• External Affairs at SECOPS.\n• 1st Prize at GDG OpportunAI, Casablanca, 2025.',
-    label: 'Highlighted Work'
+    label: 'Highlighted Work',
+    alignTop: true
   },
   {
     color: '#120F17',
@@ -502,7 +504,7 @@ const MagicBento = ({
 
       <BentoCardGrid gridRef={gridRef}>
         {cardData.map((card, index) => {
-          const baseClassName = `magic-bento-card ${textAutoHide ? 'magic-bento-card--text-autohide' : ''} ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''}`;
+          const baseClassName = `magic-bento-card ${card.alignTop ? 'magic-bento-card--top' : ''} ${textAutoHide ? 'magic-bento-card--text-autohide' : ''} ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''}`;
           const cardProps = {
             className: baseClassName,
             style: {

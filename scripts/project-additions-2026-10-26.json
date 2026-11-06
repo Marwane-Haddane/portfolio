@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-26",
+  "mode": "Built-in image_gen: two edits and one concept illustration. Actual screenshots for FleetSense.",
+  "edits": [
+    {
+      "project": "feedia",
+      "prompt": "Use case: precise-object-edit. Create a landscape 16:9 portfolio cover by editing the attached Feedia home screenshot. Preserve the same full-bleed flat app UI, logos, exact visible words, original green pastoral livestock illustration, colors, buttons and hierarchy. Fit the content neatly on a 1600x900 landscape canvas: balanced compact spacing, full header, Feedia mark, Feed Smarter Farm Better headline, original description and all three buttons completely visible. Only adjust scale, spacing and seamlessly extend the existing illustrated background as needed. Do not invent features, performance claims, extra labels or pages. No device frames, no screen floating on a backdrop, no black bars or padding, no external mockup: the original page fills every edge. Keep content recognisable and legible.",
+      "inputs": [
+        "C:/1Project/code_interst/dev/portfolio react/portfolio/artifacts.local/project-additions-2026-10-26/feedia-home.png"
+      ],
+      "masterName": "feedia.png",
+      "generatedFile": "exec-10f860fc-e025-4550-bac4-36b9593231fb.png"
+    },
+    {
+      "project": "smart-eco-home",
+      "prompt": "Use case: precise-object-edit / outpainting. Edit the attached REAL photograph of a student's Smart Eco Home model into a seamless 16:9 landscape portfolio photograph. Preserve the actual white two-storey handmade house, all furniture, roof, green lawn, yellow flowers, SMART Eco HOME sign, wiring, electronics, original lighting and camera angle EXACTLY. Expand the original outdoor setting naturally on the left and right using the same stone ledge and softly blurred shrubs. Frame the complete original house prominently in the middle at useful thumbnail scale, with entire roof and base visible and small breathing room. No new equipment, no extra buildings, no removed wiring, no invented smart features, no polishing into a different physical model. A single continuous genuine-looking outdoor scene: no device mockup, no collage, no borders, no black padding, no text added. Landscape canvas 1600x900.",
+      "inputs": [
+        "C:/1Project/code_interst/dev/portfolio react/portfolio/artifacts.local/project-additions-2026-10-26/smart-home-hardware.jpeg"
+      ],
+      "masterName": "smart-eco-home.png",
+      "generatedFile": "exec-0f4ea58f-83d4-4112-a51e-2ef2d04dcff6.png"
+    },
+    {
+      "project": "driver-drowsiness",
+      "prompt": "Use case: scientific-educational illustration. Asset: 16:9 full-bleed landscape portfolio project cover, 1600x900. Create a crisp modern technical editorial illustration for a real Python/OpenCV/MediaPipe driver drowsiness prototype. A large stylized non-photorealistic human head on the left in three-quarter view, eyes gently closed, six precise luminous teal eye landmark dots connected around EACH eyelid, a restrained fine face-landmark mesh. On the right, an elegant minimal visual pipeline of an eye landmark outline, a simple clock glyph, and an audio alert speaker glyph linked by thin lines. Background deep slate-blue with subtle teal atmospheric depth, no black bars. Large legible exact title 'Driver Drowsiness'; subtitle 'Computer vision prototype'. Small legible bottom label 'Concept illustration'. No other text, numerical results, accuracy figures, charts, fictitious live readouts, dashboards, device frames, phones, hands or staged laptops. Sophisticated restrained research-project visual, uncluttered with generous spacing, teal and soft blue accents, soft realistic 3D shading on the stylized face, clearly illustrative rather than a real screenshot.",
+      "inputs": [],
+      "masterName": "driver-drowsiness.png",
+      "generatedFile": "exec-273c0a13-e1b1-4764-b7e4-002679a07f42.png"
+    }
+  ],
+  "sources": {
+    "fleetsense": "https://github.com/Marwane-Haddane/HACKTOBER/tree/main/docs/readme/screens",
+    "feedia": "https://github.com/Marwane-Haddane/hackai/tree/main/images",
+    "smart-eco-home": "https://github.com/Marwane-Haddane/SmartHome/tree/main/images",
+    "driver-drowsiness": "https://github.com/Marwane-Haddane/driver-drowsiness-detection/blob/main/drowsiness_detection.ipynb"
+  },
+  "notes": [
+    "Original screenshots remain in galleries.",
+    "FleetSense: Marwane's documented contribution is frontend, mapping, and 3D inspection.",
+    "Driver Drowsiness uses a labelled concept illustration; no camera capture or measured result.",
+    "No benchmark, zero-hallucination, customer or award claims added."
+  ]
+}

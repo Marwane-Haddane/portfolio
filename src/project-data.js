@@ -6,7 +6,9 @@ export const projectsData = [
     ...project, id: ids[project.slug], desc: project.description,
     longDesc: project.built.join(' ') + ' Contribution: ' + project.role + '. Status: ' + project.status + '. ' + project.limitation,
     domain: project.category === 'Cybersecurity' ? 'cyber' : project.category === 'AI & embedded' ? 'ai' : 'dev',
-    type: 'project', image: '/projects/' + project.image + '-480.webp',
+    type: 'project', image: '/projects/' + project.cover + '-480.webp',
+    imageSrcSet: `/projects/${project.cover}-480.webp 480w, /projects/${project.cover}-960.webp 960w`,
+    coverImage: '/projects/' + project.cover + '-960.webp',
     images: [project.image, ...(project.gallery || [])].map(image => '/projects/' + image + '-960.webp'), link: project.live || null,
   })),
 { 
@@ -41,7 +43,7 @@ export const projectsData = [
   }
 ];
 
-export const featuredProjects = [1, 7, 9].map(id => {
+export const featuredProjects = [19, 1, 20].map(id => {
   const project = projectsData.find(item => item.id === id);
   return { link: '/project/' + id + '/', text: project.title, hoverImage: project.image, texts: project.tags.slice(0, 3), images: [project.image] };
 });

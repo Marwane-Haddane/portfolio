@@ -110,6 +110,7 @@
 .project-filters__content {
   flex: 1;
   min-width: 0;
+  width: 100%;
 }
 
 /* ─── Type Sub-Filters ─── */
@@ -145,7 +146,7 @@
 /* ─── Project Cards Grid ─── */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.25rem;
 }
 
@@ -179,11 +180,12 @@
 
 .project-card__image {
   position: relative;
-  height: 180px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 }
 
 .project-card__image img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -191,7 +193,7 @@
 }
 
 .project-card:hover .project-card__image img {
-  transform: scale(1.08);
+  transform: none;
 }
 
 .project-card__overlay {
