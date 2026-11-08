@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>
+    if (window.location.hostname === 'marwane-haddane.web.app' || window.location.hostname === 'marwane-haddane.firebaseapp.com') {
+      window.location.replace('https://marwane-haddane.tech' + window.location.pathname + window.location.search + window.location.hash);
+    }
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NM7VSPBX"></script>
   <script>

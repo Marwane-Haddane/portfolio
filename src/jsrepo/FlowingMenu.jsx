@@ -147,7 +147,7 @@ const MenuItem = ({ link, text, image, hoverImage, texts, images, speed, textCol
       >
         {text}
       </a>
-      <div className="marquee" ref={marqueeRef} style={{ backgroundColor: marqueeBgColor }}>
+      <div className="marquee" ref={marqueeRef} aria-hidden="true" role="presentation" style={{ backgroundColor: marqueeBgColor }}>
         <div className="marquee__inner-wrap">
           <div className="marquee__inner" ref={marqueeInnerRef} aria-hidden="true">
             {[...Array(repetitions)].map((_, idx) => (

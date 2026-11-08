@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Marwane Haddane', email: 'marwanehaddane5@gmail.com', academicEmail: 'marwane.haddane@usmba.ac.ma',
-  github: 'https://github.com/Marwane-Haddane', linkedin: 'https://www.linkedin.com/in/marwane-haddane/', site: 'https://marwane-haddane.web.app',
+  github: 'https://github.com/Marwane-Haddane', linkedin: 'https://www.linkedin.com/in/marwane-haddane/', site: 'https://marwane-haddane.tech',
 };
 export const categories = ['All work', 'Cybersecurity', 'AI & embedded', 'Web & mobile'];
 export const projectIds = { wesecure: 1, memoria: 7, vart: 9, mysoil: 10, rihla: 11, barasalfa: 12, 'la-belle-maison': 13, robogenius: 14, moru: 15, orbit: 16, slidelink: 17, 'la-belle-maison-mobile': 18, fleetsense: 19, feedia: 20, 'driver-drowsiness': 21, 'smart-eco-home': 22 };

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marwane-haddane.web.app/sitemap.xml
+Sitemap: https://marwane-haddane.tech/sitemap.xml

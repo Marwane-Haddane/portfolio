@@ -1116,9 +1116,17 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       };
       options.distortion = distortions[options.distortion];
 
-      const myApp = new App(container, options);
-      appRef.current = myApp;
-      myApp.loadAssets().then(myApp.init);
+      try {
+        const myApp = new App(container, options);
+        appRef.current = myApp;
+        myApp.loadAssets().then(myApp.init).catch(err => {
+          console.warn('Hyperspeed asset loading/initialization failed:', err);
+        });
+      } catch (err) {
+        console.warn('Hyperspeed WebGL context could not be created:', err);
+        container.style.background = 'radial-gradient(circle at 50% 50%, #150a2a 0%, #08030e 100%)';
+        return;
+      }
 
       // Pause when scrolled out of viewport
       observer = new IntersectionObserver(([entry]) => {

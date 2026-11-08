@@ -102,7 +102,7 @@ function Home() {
 
               <div className="hero-line" style={{ marginTop: '1rem' }}>
                 <div className="hov">
-                  <h2 className="hero-static-sm">Passionate by,</h2>
+                  <h2 className="hero-static-sm">Passionate about</h2>
                 </div>
                 <div className="hov">
                   <span className="hero-rotating-box" style={{ padding: '0.1em 0.4em' }}>
