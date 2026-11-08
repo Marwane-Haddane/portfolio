@@ -22,7 +22,10 @@ const ScrambledText = ({
   useEffect(() => {
     if (!rootRef.current) return;
 
-    const split = SplitText.create(rootRef.current.querySelector('p'), {
+    const target = rootRef.current.querySelector('.scrambled-text-visual') || rootRef.current.querySelector('p');
+    if (!target) return;
+
+    const split = SplitText.create(target, {
       type: 'chars',
       charsClass: 'char'
     });
@@ -68,7 +71,10 @@ const ScrambledText = ({
 
   return (
     <div ref={rootRef} className={`text-block ${className}`} style={style}>
-      <p>{children}</p>
+      <p style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: 0 }}>
+        {children}
+      </p>
+      <p aria-hidden="true" className="scrambled-text-visual">{children}</p>
     </div>
   );
 };

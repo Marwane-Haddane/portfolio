@@ -20,7 +20,7 @@ for (const path of pages) {
   const html = await readFile(join(output, path, 'index.html'), 'utf8');
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${path}: one main heading`);
   assert(!html.includes('<!--app-html-->'), `${path}: rendered content`);
-  assert(html.includes(`rel="canonical" href="https://marwane-haddane.web.app${path}"`), `${path}: correct canonical`);
+  assert(html.includes(`rel="canonical" href="https://marwane-haddane.tech${path}"`), `${path}: correct canonical`);
   const data = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
   assert(data['@graph'].length >= 3, `${path}: structured data`);
   for (const match of html.matchAll(/(?:src|href)="(\/[^"#?]*)/g)) {

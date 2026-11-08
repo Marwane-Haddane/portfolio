@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import TextPressure from '../../jsrepo/TextPressure';
+import { FaShieldAlt, FaServer } from 'react-icons/fa';
 import './experience.css';
 
 // Lazy-load the timeline component and its CSS
@@ -20,19 +21,43 @@ const experiences = [
     date: '2026 - Now',
     points: [
       'Seeking an international research internship in cybersecurity or AI for Summer 2027.',
-      'Ready to apply offensive security skills and AI/ML knowledge to real-world challenges.',
+      'Ready to apply offensive security skills, container hardening, and AI/ML knowledge to real-world challenges.',
       'Open to remote, hybrid, or on-site positions.',
     ],
   },
   {
-    title: 'Cybersecurity & Digital Development' ,
+    title: 'Cybersecurity Intern – Docker Hardening',
+    company_name: 'Ministère de la Transition Numérique et de la Réforme de l\'Administration (MTNRA), Rabat',
+    icon: <FaShieldAlt style={{ fontSize: '1.5rem', color: '#a78bfa' }} />,
+    iconBg: '#1e1b4b',
+    date: 'July 2026',
+    points: [
+      'Executed a comprehensive CIS Docker Benchmark Level 1 hardening audit covering all 87 controls across host configurations, Docker daemon, and runtime.',
+      'Implemented least-privilege principles via Rootless Docker container architecture to secure daemon and runtime attack surfaces.',
+      'Simulated container privilege escalation scenarios and authored actionable defensive remediation documentation.',
+    ],
+  },
+  {
+    title: 'Cybersecurity Intern – Active Directory Security',
+    company_name: 'Centre Hospitalier Universitaire (CHU) Fès',
+    icon: <FaServer style={{ fontSize: '1.4rem', color: '#38bdf8' }} />,
+    iconBg: '#0f172a',
+    date: 'June – July 2026',
+    points: [
+      'Deployed and hardened Microsoft LAPS across Active Directory environments (GPO configuration, AD schema extension, and fine-grained ACLs).',
+      'Mapped attack paths and privilege escalation vectors using BloodHound, analyzing Kerberoasting, AS-REP Roasting, and AD CS vulnerabilities.',
+      'Engineered automation scripts to analyze and exploit identified attack paths for defensive remediation.',
+    ],
+  },
+  {
+    title: 'Cybersecurity & Digital Development Engineering Student',
     company_name: 'ENSA Fès',
     iconSrc: 'https://res.cloudinary.com/dnye0gigw/image/upload/v1778035272/ENSAFES_logo20230124155030_v3flsn.png',
     iconAlt: 'ENSA Fès',
     iconBg: "#ffffff",
-    date: '2025 - 2028 (expected)' ,
+    date: '2025 - 2028 (expected)',
     points: [
-      'Fourth-year engineering student; President of RoboGenius.',
+      'Fourth-year engineering student; President of RoboGenius (Bureau 26/27).',
       'Founder and Lead Organizer of GDGoC ENSAF; External Affairs at SECOPS.',
       'Participated in multiple CTF (Capture The Flag) competitions and hackathons.',
     ],
@@ -110,7 +135,7 @@ function Experience() {
                   date={experience.date}
                   dateClassName="timeline-date-text"
                   iconStyle={{ background: experience.iconBg, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  icon={<img src={experience.iconSrc} alt={experience.iconAlt} loading="lazy" width="40" height="40" />}
+                  icon={experience.icon || <img src={experience.iconSrc} alt={experience.iconAlt} loading="lazy" width="40" height="40" />}
                 >
                   <div>
                     <h3 style={{ color: '#fff', fontSize: '24px', fontWeight: 'bold', margin: 0 }}>

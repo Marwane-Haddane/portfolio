@@ -402,16 +402,39 @@ function ProjectDetail({ project }) {
                 )}
 
                 {!project.github && !project.link && (
-                  <div style={{
-                    textAlign: 'center',
-                    color: 'rgba(255,255,255,0.3)',
-                    fontSize: '0.75rem',
-                    padding: '1rem',
-                    border: '1px dashed rgba(124, 58, 237, 0.15)',
-                    borderRadius: '12px',
-                  }}>
-                    No public links available
-                  </div>
+                  <a
+                    href="https://github.com/Marwane-Haddane"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0.75rem 1rem',
+                      background: 'rgba(124, 58, 237, 0.06)',
+                      border: '1px solid rgba(124, 58, 237, 0.15)',
+                      borderRadius: '12px',
+                      color: '#fff',
+                      textDecoration: 'none',
+                      fontSize: '0.85rem',
+                      fontWeight: 500,
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = 'rgba(124, 58, 237, 0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(124, 58, 237, 0.35)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'rgba(124, 58, 237, 0.06)';
+                      e.currentTarget.style.borderColor = 'rgba(124, 58, 237, 0.15)';
+                    }}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                      <FaGithub style={{ color: '#a78bfa', fontSize: '1.1rem' }} />
+                      View Author GitHub
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: '#a78bfa' }}>Profile →</span>
+                  </a>
                 )}
               </div>
             </div>
